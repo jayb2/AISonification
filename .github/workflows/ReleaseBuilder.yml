@@ -1,0 +1,147 @@
+# This is a basic workflow to help you get started with Actions
+# Change Test Project names to name of project
+
+
+name: ReleaseBuilder
+
+
+on:
+  push:
+    # Sequence of patterns matched against refs/tags
+    tags:
+    - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  mac-release:
+    # The type of runner that the job will run on
+    runs-on: macos-latest 
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v2
+
+    # Runs a single command using the runners shell
+    - name: Directory
+      run: pwd
+    - name: Files
+      run: ls -a
+
+    # Runs a set of commands using the runners shell
+    - name: Xcode Build
+      run: xcodebuild -project TestProject/Builds/MacOSX/TestProject.xcodeproj
+    
+    - name: Print Build output
+      run: ls -R TestProject/Builds  
+    
+    
+    - name: Copy app
+      run: |
+        mkdir Mac,
+        cp -rf TestProject/Builds/MacOSX/build/Debug/ Mac
+    
+    - name: Check folders
+      run: ls
+      
+    - name: Check app copied
+      run: ls Mac
+        
+    - name: Download zip using homebrew
+      run: brew install zip
+      
+    - name: Zip build
+      run:  zip -r mac-release.zip Mac
+    
+    - name: Upload artifact
+      uses: actions/upload-artifact@v1.0.0
+      with:
+        # Artifact name
+        name: TestProject
+        # Directory containing files to upload
+        path: mac-release.zip
+      
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        allowUpdates: true
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        draft: false
+        prerelease: false
+    - name: Upload Release Asset
+      id: upload-release-asset 
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          asset_path: ./mac-release.zip
+          asset_name: mac-release.zip
+          asset_content_type: application/zip
+          
+  windows_release:
+    runs-on: windows-latest 
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v2
+    
+    # Runs a single command using the runners shell
+    - name: Directory
+      run: pwd
+      
+    - name: Add msbuild to PATH
+      uses: microsoft/setup-msbuild@v1.0.0
+      
+    - name: VStudio Build
+      run: msbuild TestProject/Builds/VisualStudio2019/TestProject.sln
+    
+    - name: Make App Folder
+      run:  mkdir TestProjectBuild
+    
+    - name: Copy build files
+      run: cp -r TestProject/Builds/VisualStudio2019/x64/Debug/App/ TestProjectBuild  
+    
+    - name: Check copy
+      run: ls TestProjectBuild/
+      
+    - name: zip 
+      run: 7z a  win-release TestProjectBuild
+      
+    - name: Print Contents
+      run: ls
+      
+    - name: Upload artifact
+      uses: actions/upload-artifact@v1.0.0
+      with:
+        # Artifact name
+        name: TestProject-Windows
+        # Directory containing files to upload
+        path: win-release.7z  
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        allowUpdates: true
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        draft: false
+        prerelease: false
+    - name: Upload Release Asset
+      id: upload-release-asset 
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          asset_path: ./win-release.zip
+          asset_name: win-release.zip
+          asset_content_type: application/zip
