@@ -1,0 +1,107 @@
+#Change the Test Project sections to own project name
+
+# This is a basic workflow to help you get started with Actions
+
+name: Artefact Builder
+
+# Controls when the action will run. Triggers the workflow on push or pull request 
+# events but only for the master branch
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+# This is a basic workflow to help you get started with Action
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  mac_build:
+    # The type of runner that the job will run on
+    runs-on: macos-latest 
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v2
+
+    # Runs a single command using the runners shell
+    - name: Directory
+      run: pwd
+    - name: Files
+      run: ls -a
+
+    # Runs a set of commands using the runners shell
+    - name: Xcode Build
+      run: xcodebuild -project TestProject/Builds/MacOSX/TestProject.xcodeproj
+    
+    - name: Print Build output
+      run: ls -R TestProject/Builds  
+    
+    
+    - name: Copy app
+      run: |
+        mkdir Mac,
+        cp -rf TestProject/Builds/MacOSX/build/Debug/ Mac
+    
+    - name: Check folders
+      run: ls
+      
+    - name: Check app copied
+      run: ls Mac
+        
+    - name: Download zip using homebrew
+      run: brew install zip
+      
+    - name: Zip build
+      run:  zip -r release.zip Mac
+    
+    - name: Upload artifact
+      uses: actions/upload-artifact@v1.0.0
+      with:
+        # Artifact name
+        name: TestProject-Mac
+        # Directory containing files to upload
+        path: release.zip
+        
+        
+  windows_build:
+    runs-on: windows-latest 
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v2
+    
+    # Runs a single command using the runners shell
+    - name: Directory
+      run: pwd
+      
+    - name: Add msbuild to PATH
+      uses: microsoft/setup-msbuild@v1.0.0
+      
+    - name: VStudio Build
+      run: msbuild TestProject/Builds/VisualStudio2019/TestProject.sln
+    
+    - name: Make App Folder
+      run:  mkdir TestProjectBuild
+    
+    - name: Copy build files
+      run: cp -r TestProject/Builds/VisualStudio2019/x64/Debug/App/ TestProjectBuild  
+    
+    - name: Check copy
+      run: ls TestProjectBuild/
+      
+    - name: zip 
+      run: 7z a  TestProjectWindows TestProjectBuild
+    - name: Print Contents
+      run: ls
+      
+    - name: Upload artifact
+      uses: actions/upload-artifact@v1.0.0
+      with:
+        # Artifact name
+        name: TestProject-Windows
+        # Directory containing files to upload
+        path: TestProjectWindows.7z
