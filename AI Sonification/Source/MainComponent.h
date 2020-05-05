@@ -9,6 +9,8 @@
 #pragma once
 
 #include <JuceHeader.h>
+#include "Game.h"
+#include "Shape.h"
 
 //==============================================================================
 /*
@@ -26,13 +28,16 @@ public:
     void update() override;
 
     //==============================================================================
-    void paint (Graphics& g) override;
+    void paint(Graphics& g) override;
+    
     void resized() override;
 
 private:
     //==============================================================================
     // Your private member variables go here...
 
+    Game m_game;
+    Shape m_shape;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)
 };

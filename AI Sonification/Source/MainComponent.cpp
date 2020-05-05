@@ -13,7 +13,12 @@ MainComponent::MainComponent()
 {
     // Make sure you set the size of the component after
     // you add any child components.
-    setSize (800, 600);
+
+    addAndMakeVisible(m_game);
+    addAndMakeVisible(m_shape);
+
+
+    setSize (720, 920);
     setFramesPerSecond (60); // This sets the frequency of the update calls.
 }
 
@@ -26,6 +31,7 @@ void MainComponent::update()
 {
     // This function is called at the frequency specified by the setFramesPerSecond() call
     // in the constructor. You can use it to update counters, animate values, etc.
+    
 }
 
 //==============================================================================
@@ -42,4 +48,7 @@ void MainComponent::resized()
     // This is called when the MainContentComponent is resized.
     // If you add any child components, this is where you should
     // update their positions.
+
+    m_game.setBounds(getLocalBounds());
+    m_shape.setBounds(getLocalBounds());
 }
