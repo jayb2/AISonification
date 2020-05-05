@@ -12,5 +12,6 @@
 #include "Shape.h"
 
 class Log : public Shape {
-
+    int numOfLogs;
+    int acceleration;
 };

@@ -13,5 +13,12 @@
 
 class Shape : public Component {
 public:
+    Colour col;
+    int xPos, yPos;
+    int width, height;
+    int velocity;
+    
+    
+    
     void paint(Graphics&) override;
  };

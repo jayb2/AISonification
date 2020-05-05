@@ -12,5 +12,12 @@
 #include "Shape.h"
 
 class Frog : public Shape {
+    
+    bool isAlive;
+    int stamina;
+    int hearts;
+    int doubleJump;
+    
+    void reset();
 
 };

@@ -13,6 +13,13 @@
 class Game : public Component
 {
 public: 
+    bool isRunning;
+    int floorHeight;
+
+    
+    void update();
+    void tick();
     void paint(Graphics&) override;
     void resized() override;
+
 };
