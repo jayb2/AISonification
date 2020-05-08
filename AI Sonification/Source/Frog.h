@@ -13,11 +13,14 @@
 
 class Frog : public Shape {
     
+public:
+    Frog();
+
     bool isAlive;
     int stamina;
     int hearts;
     int doubleJump;
     
-    void reset();
+    //void reset();
 
 };

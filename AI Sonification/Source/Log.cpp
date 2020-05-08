@@ -11,8 +11,3 @@
 #include <JuceHeader.h>
 #include "Log.h"
 
-void Shape::paint(Graphics& g)
-{
-    g.setColour(Colours::burlywood);
-    g.fillRect(122, 100, 25, 100);
-}

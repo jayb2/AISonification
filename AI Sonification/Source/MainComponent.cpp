@@ -15,7 +15,7 @@ MainComponent::MainComponent()
     // you add any child components.
 
     addAndMakeVisible(m_game);
-    addAndMakeVisible(m_shape);
+    
 
 
     setSize (720, 920);
@@ -50,5 +50,5 @@ void MainComponent::resized()
     // update their positions.
 
     m_game.setBounds(getLocalBounds());
-    m_shape.setBounds(getLocalBounds());
+    
 }

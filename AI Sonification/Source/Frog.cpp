@@ -11,3 +11,10 @@
 #include <JuceHeader.h>
 #include "Frog.h"
 
+Frog::Frog() :
+    isAlive(true),
+    stamina(10),
+    hearts(3),
+    col(Colours::blue)
+{}
+

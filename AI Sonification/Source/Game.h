@@ -9,6 +9,10 @@
 */
 
 #pragma once
+#include <JuceHeader.h>
+#include "Shape.h"
+#include "Frog.h"
+#include "Log.h"
 
 class Game : public Component
 {
