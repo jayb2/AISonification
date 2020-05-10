@@ -15,8 +15,6 @@ MainComponent::MainComponent()
     // you add any child components.
 
     addAndMakeVisible(m_game);
-    
-
 
     setSize (720, 920);
     setFramesPerSecond (60); // This sets the frequency of the update calls.
@@ -50,5 +48,6 @@ void MainComponent::resized()
     // update their positions.
 
     m_game.setBounds(getLocalBounds());
+
     
 }

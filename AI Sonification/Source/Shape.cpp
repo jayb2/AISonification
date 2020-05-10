@@ -11,12 +11,18 @@
 #include "Shape.h"
 
 
-Shape::Shape():
 
-
+Shape::Shape(int x, int y, int w, int h) :
+    xPos(x),
+    yPos(y),
+    width(w),
+    height(h)
 {
 }
 
+Shape::~Shape() {
+
+}
 
 void Shape::paint(Graphics& g)
 {
@@ -24,10 +30,13 @@ void Shape::paint(Graphics& g)
 
     //Makes the grid lines for rough guidance on what the lanes are
     //May delete later on?
-    g.setColour(Colours::white);
+    col = (Colours::white);
+    g.setColour(col);
     for (int n = 0; n < 8; ++n)
     {
         g.drawLine((n * 90), 0, (n * 90), 920);
+        
+
     }
 
     //Makes the lily pads in which frog can jump on

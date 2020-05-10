@@ -10,15 +10,22 @@
 
 #pragma once
 #include <JuceHeader.h>
-#include "Frog.h"
-#include "Log.h"
 
-class Shape : public Component {
+
+class Shape : public Component {    
+
 public:
+
+ 
+
     Colour col;
     int xPos, yPos;
     int width, height;
-    int velocity;
+    //int velocity;
+
+    Shape(int x, int y, int w, int h);
+    ~Shape();
+
     
-    void paint(Graphics&) override;
+    void paint(Graphics&);
  };

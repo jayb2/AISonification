@@ -16,11 +16,19 @@
 
 class Game : public Component
 {
+private:
+    Shape m_shape;
+    Frog m_frog;
+
+
 public: 
     bool isRunning;
-    int floorHeight;
+    //int floorHeight;
 
     
+    Game();
+    ~Game();
+
     void update();
     void tick();
     void paint(Graphics&) override;

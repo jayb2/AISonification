@@ -14,13 +14,18 @@
 class Frog : public Shape {
     
 public:
-    Frog();
+
 
     bool isAlive;
     int stamina;
     int hearts;
-    int doubleJump;
+    bool doubleJump;
     
     //void reset();
 
+    Frog(int x, int y, int w, int h);
+    ~Frog();
+
+
+    void setStartPos(int startPosX, int startPosY);
 };
