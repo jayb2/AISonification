@@ -12,8 +12,9 @@
 #include "Game.h"
 
 
-Game::Game() :m_shape(0, 0, 0, 0, Colours::white), m_frog(105, 810, 60, 60, Colours::pink), m_log(4, 4, 4, 4, Colours::brown), isRunning(true) {
+Game::Game() :m_shape(0, 0, 0, 0, Colours::white), m_frog(105, 810, 60, 60, Colours::hotpink), m_log(105, 90, 60, 100, Colours::sandybrown), isRunning(true) {
     addAndMakeVisible(m_shape);
+    addMouseListener(this, true);
 }
 
 Game::~Game() {
@@ -24,15 +25,45 @@ void Game::update() {
     repaint();
 }
 
-void Game::mouseDown(const MouseEvent& event) {
-   
-    m_frog.jumpLeft();
+void Game::tick() {
 
 }
 
+void Game::mouseDown(const MouseEvent& event) {
+    m_frog.jumpRight();
+
+}
+
+
 void Game::paint(Graphics& g)
 {
-    m_frog.draw(g);
+    g.fillAll(Colours::darkcyan);
+
+    //Makes the grid lines for rough guidance on what the lanes are
+    //May delete later on?
+    g.setColour(Colours::white);
+    for (int n = 0; n < 8; ++n)
+    {
+        g.drawLine((n * 90), 0, (n * 90), 920);
+
+
+    }
+
+    //Makes the lily pads in which frog can jump on
+    g.setColour(Colours::darkgreen);
+    for (int n = 0; n < 8; ++n)
+    {
+        g.fillEllipse((n * 90) + 5, 800, 80, 80);
+    }
+    
+    //Draws the frog providing it's alive
+    if (m_frog.alive) {
+        m_frog.draw(g);
+    }
+
+    //Draws the logs
+    m_log.draw(g);
+
 }
 
 void Game::resized() {

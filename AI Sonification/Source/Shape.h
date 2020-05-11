@@ -14,18 +14,28 @@
 
 class Shape : public Component { 
 
-   Point <int> m_xPos, m_yPos, m_width, m_height;
-    Colour m_col;
+   int m_xPos, m_yPos, m_width, m_height;
+   Colour m_col;
 
 public:
     //int velocity;
+    bool alive;
+    int maxStamina, stamina;
+
 
     Shape(int x, int y, int w, int h, Colour col);
     ~Shape();
 
     Rectangle<int> getShape();
 
+    void stamTick();
+
+    void jumpRight();
     void jumpLeft();
+    
+    void doubleJumpRight();
+    void doubleJumpLeft();
+
     void draw(Graphics&);
 
 

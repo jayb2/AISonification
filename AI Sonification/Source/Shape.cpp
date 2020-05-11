@@ -13,11 +13,14 @@
 
 
 Shape::Shape(int x, int y, int w, int h, Colour col) :
-    m_xPos(x, y),
-    //m_yPos(y),
-    m_width(w, h),
-    //m_height(h),
-    m_col(col)
+    m_xPos(x),
+    m_yPos(y),
+    m_width(w),
+    m_height(h),
+    m_col(col),
+    alive(true),
+    maxStamina(1),
+    stamina(maxStamina)
 
 {
 
@@ -28,41 +31,53 @@ Shape::~Shape() {
 }
 
 Rectangle<int> Shape::getShape() {
-    return Rectangle<int>(m_xPos.x, m_xPos.y, m_width.x, m_width.y);
+    return Rectangle<int>(m_xPos, m_yPos, m_width, m_height);
 
+}
+
+void Shape::stamTick() {
+
+}
+
+void Shape::jumpRight() {
+    if (m_xPos < 645) {
+        m_xPos += 90;
+    }
+    DBG("new frog pos ");
+    DBG(m_xPos);
 }
 
 void Shape::jumpLeft() {
-    m_xPos.x += 90;
+    if (m_xPos > 15) {
+        m_xPos -= 90;
+    }
     DBG("new frog pos ");
-    DBG(m_xPos.x);
+    DBG(m_xPos);
 }
 
+void Shape::doubleJumpRight() {
+ 
+    if (m_xPos < 555 && stamina > 0) {
+        m_xPos += 180;
+        --stamina;
+    }
+    else if (stamina <= 0) {
+        DBG("you outta stamina fool");
+    }
+}
+
+void Shape::doubleJumpLeft() {
+
+}
 
 void Shape::draw(Graphics& g)
 {
-    g.fillAll(Colours::darkcyan);
 
-    //Makes the grid lines for rough guidance on what the lanes are
-    //May delete later on?
-    //m_col = (Colours::white);
-    g.setColour(m_col);
-    for (int n = 0; n < 8; ++n)
-    {
-        g.drawLine((n * 90), 0, (n * 90), 920);
-        
 
-    }
-
-    //Makes the lily pads in which frog can jump on
-    g.setColour(Colours::darkgreen);
-    for (int n = 0; n < 8; ++n)
-    {
-        g.fillEllipse((n * 90) + 5, 800, 80, 80);
-    }
-
+    if (!alive)return;
+    g.saveState();
     g.setColour(m_col);
     g.fillRect(getShape());
-
+    g.restoreState();
 }
 

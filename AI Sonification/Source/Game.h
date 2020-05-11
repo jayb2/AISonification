@@ -25,7 +25,7 @@ public:
     bool isRunning;
     //int floorHeight;
     int logRunning;
-    int mouse;
+
 
     
     Game();
