@@ -11,9 +11,10 @@
 #include <JuceHeader.h>
 #include "Frog.h"
 
-Frog::Frog(int x, int y, int w, int h) :
-    Shape{x, y, w, h}
+Frog::Frog(int x, int y, int w, int h, Colour col) :
+    Shape{x, y, w, h, col}
 {
+
 }
 
 
@@ -21,9 +22,7 @@ Frog::~Frog() {
 
 }
 
-void Frog::setStartPos(int startPosX, int startPosY) {
-    startPosX = xPos;
-    startPosY = yPos;
-    std::cout << "Start Pos X is " << startPosX << std::endl << "Start Pos Y is " << startPosY << std::endl;
+void Frog::paint(Graphics& g) {
+
 }
 

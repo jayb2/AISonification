@@ -29,7 +29,7 @@ void MainComponent::update()
 {
     // This function is called at the frequency specified by the setFramesPerSecond() call
     // in the constructor. You can use it to update counters, animate values, etc.
-    
+    m_game.update();
 }
 
 //==============================================================================

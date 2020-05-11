@@ -19,11 +19,13 @@ class Game : public Component
 private:
     Shape m_shape;
     Frog m_frog;
-
+    Log m_log;
 
 public: 
     bool isRunning;
     //int floorHeight;
+    int logRunning;
+    int mouse;
 
     
     Game();
@@ -31,7 +33,9 @@ public:
 
     void update();
     void tick();
+    void mouseDown(const MouseEvent& event);
     void paint(Graphics&) override;
     void resized() override;
+
 
 };

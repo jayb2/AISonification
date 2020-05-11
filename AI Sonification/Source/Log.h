@@ -11,7 +11,12 @@
 #pragma once
 #include "Shape.h"
 
-/*class Log : public Shape {
-    int numOfLogs;
-    int acceleration;
-}; */
+class Log : public Shape {
+    int m_acceleration;
+    int m_numOfLogs;
+
+public:
+
+    Log(int x, int y, int w, int h, Colour col);
+    ~Log();
+}; 

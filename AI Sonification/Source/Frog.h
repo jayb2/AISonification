@@ -20,12 +20,13 @@ public:
     int stamina;
     int hearts;
     bool doubleJump;
+    int test1;
     
     //void reset();
 
-    Frog(int x, int y, int w, int h);
+    Frog(int x, int y, int w, int h, Colour col);
     ~Frog();
 
+    void paint(Graphics&);
 
-    void setStartPos(int startPosX, int startPosY);
 };

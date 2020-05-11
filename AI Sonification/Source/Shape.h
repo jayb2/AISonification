@@ -12,20 +12,23 @@
 #include <JuceHeader.h>
 
 
-class Shape : public Component {    
+class Shape : public Component { 
+
+   Point <int> m_xPos, m_yPos, m_width, m_height;
+    Colour m_col;
 
 public:
-
- 
-
-    Colour col;
-    int xPos, yPos;
-    int width, height;
     //int velocity;
 
-    Shape(int x, int y, int w, int h);
+    Shape(int x, int y, int w, int h, Colour col);
     ~Shape();
 
-    
-    void paint(Graphics&);
+    Rectangle<int> getShape();
+
+    void jumpLeft();
+    void draw(Graphics&);
+
+
+
+
  };
