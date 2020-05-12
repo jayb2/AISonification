@@ -15,6 +15,7 @@
 Game::Game() :m_shape(0, 0, 0, 0, Colours::white), m_frog(105, 810, 60, 60, Colours::hotpink), m_log(105, 90, 60, 100, Colours::sandybrown), isRunning(true) {
     addAndMakeVisible(m_shape);
     addMouseListener(this, true);
+
 }
 
 Game::~Game() {
@@ -23,6 +24,7 @@ Game::~Game() {
 
 void Game::update() {
     repaint();
+    m_frog.stamTick();
 }
 
 void Game::tick() {
@@ -30,7 +32,7 @@ void Game::tick() {
 }
 
 void Game::mouseDown(const MouseEvent& event) {
-    m_frog.jumpRight();
+    m_frog.doubleJumpRight();
 
 }
 

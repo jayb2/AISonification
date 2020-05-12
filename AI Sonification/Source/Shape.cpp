@@ -36,7 +36,15 @@ Rectangle<int> Shape::getShape() {
 }
 
 void Shape::stamTick() {
+    static int frameCount = 0;
+    ++frameCount;
+    DBG("FRAMECOUNT");
+    DBG(frameCount);
 
+    if (frameCount % 100 == 0) {
+        ++stamina;
+        if (stamina > maxStamina) stamina = maxStamina;
+    }
 }
 
 void Shape::jumpRight() {

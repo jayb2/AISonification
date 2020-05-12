@@ -15,9 +15,6 @@ class Frog : public Shape {
     
 public:
 
-
-    bool isAlive;
-    int stamina;
     int hearts;
     bool doubleJump;
     int test1;
