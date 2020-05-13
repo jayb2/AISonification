@@ -15,7 +15,8 @@
 Game::Game() :m_shape(0, 0, 0, 0, Colours::white), m_frog(105, 810, 60, 60, Colours::hotpink), m_log(105, 90, 60, 100, Colours::sandybrown), isRunning(true) {
     addAndMakeVisible(m_shape);
     addMouseListener(this, true);
-
+    addKeyListener(this);
+    setWantsKeyboardFocus(true);
 }
 
 Game::~Game() {
@@ -25,6 +26,7 @@ Game::~Game() {
 void Game::update() {
     repaint();
     m_frog.stamTick();
+    m_log.tick(3);
 }
 
 void Game::tick() {
@@ -32,10 +34,32 @@ void Game::tick() {
 }
 
 void Game::mouseDown(const MouseEvent& event) {
-    m_frog.doubleJumpRight();
 
 }
 
+bool Game::keyPressed(const KeyPress& key, Component* originatingComponent) {
+
+    if (key.getTextCharacter() == 'd') {
+        //DBG("right");
+        m_frog.jumpRight();
+    }
+
+    if (key.getTextCharacter() == 'a') {
+        //DBG("left");
+        m_frog.jumpLeft();
+    }
+
+    if (key.getTextCharacter() == 'e') {
+        //DBG("double right");
+        m_frog.doubleJumpRight();
+    }
+    
+    if (key.getTextCharacter() == 'q') {
+        //DBG("double left");
+        m_frog.doubleJumpLeft();
+    }
+    return true;
+}
 
 void Game::paint(Graphics& g)
 {

@@ -29,6 +29,7 @@ public:
     Rectangle<int> getShape();
 
     void stamTick();
+    void tick(int verticalVelocity);
 
     void jumpRight();
     void jumpLeft();

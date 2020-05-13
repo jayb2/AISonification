@@ -38,8 +38,8 @@ Rectangle<int> Shape::getShape() {
 void Shape::stamTick() {
     static int frameCount = 0;
     ++frameCount;
-    DBG("FRAMECOUNT");
-    DBG(frameCount);
+    //DBG("FRAMECOUNT");
+    //DBG(frameCount);
 
     if (frameCount % 100 == 0) {
         ++stamina;
@@ -47,25 +47,40 @@ void Shape::stamTick() {
     }
 }
 
+void Shape::tick(int verticalVelocity) {
+
+    m_yPos += verticalVelocity;
+    
+
+    //DO bounds checking here.. do I go offscreen.
+
+}
+
 void Shape::jumpRight() {
-    if (m_xPos < 645) {
+    if (m_xPos < 646) {
         m_xPos += 90;
+        if (m_xPos > 645) {
+            m_xPos = 15;
+        }
     }
-    DBG("new frog pos ");
-    DBG(m_xPos);
+    //DBG("new frog pos ");
+    //DBG(m_xPos);
 }
 
 void Shape::jumpLeft() {
-    if (m_xPos > 15) {
+    if (m_xPos > 14) {
         m_xPos -= 90;
+        if (m_xPos < 15) {
+            m_xPos = 645;
+        }
     }
-    DBG("new frog pos ");
-    DBG(m_xPos);
+    //DBG("new frog pos ");
+    //DBG(m_xPos);
 }
 
 void Shape::doubleJumpRight() {
  
-    if (m_xPos < 555 && stamina > 0) {
+    if (m_xPos < 556 && stamina > 0) {
         m_xPos += 180;
         --stamina;
     }
@@ -75,7 +90,14 @@ void Shape::doubleJumpRight() {
 }
 
 void Shape::doubleJumpLeft() {
-
+    
+    if (m_xPos > 105 && stamina > 0) {
+        m_xPos -= 180;
+        --stamina;
+    }
+    else if (stamina <= 0) {
+        DBG("you outta stamina fool");
+    }
 }
 
 void Shape::draw(Graphics& g)

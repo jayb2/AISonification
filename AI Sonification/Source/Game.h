@@ -10,11 +10,11 @@
 
 #pragma once
 #include <JuceHeader.h>
-#include "Shape.h"
 #include "Frog.h"
 #include "Log.h"
 
-class Game : public Component
+
+class Game : public Component, public KeyListener
 {
 private:
     Shape m_shape;
@@ -34,8 +34,10 @@ public:
     void update();
     void tick();
     void mouseDown(const MouseEvent& event);
+    bool keyPressed(const KeyPress& key, Component* originatingComponent);
     void paint(Graphics&) override;
     void resized() override;
+    
 
 
 };
