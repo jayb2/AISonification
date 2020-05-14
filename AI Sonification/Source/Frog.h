@@ -15,10 +15,6 @@ class Frog : public Shape {
     
 public:
 
-    int hearts;
-    bool doubleJump;
-    int test1;
-    
     //void reset();
 
     Frog(int x, int y, int w, int h, Colour col);

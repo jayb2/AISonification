@@ -12,15 +12,19 @@
 #include <JuceHeader.h>
 
 
+
 class Shape : public Component { 
 
    int m_xPos, m_yPos, m_width, m_height;
    Colour m_col;
+   int m_length, m_random, m_score;
+
 
 public:
     //int velocity;
     bool alive;
     int maxStamina, stamina;
+    int hearts;
 
 
     Shape(int x, int y, int w, int h, Colour col);
@@ -28,9 +32,10 @@ public:
 
     Rectangle<int> getShape();
 
+    void random();
     void stamTick();
     void tick(int verticalVelocity);
-
+    
     void jumpRight();
     void jumpLeft();
     

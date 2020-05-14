@@ -20,7 +20,8 @@ Shape::Shape(int x, int y, int w, int h, Colour col) :
     m_col(col),
     alive(true),
     maxStamina(1),
-    stamina(maxStamina)
+    stamina(maxStamina),
+    m_score(0)
 
 {
 
@@ -33,6 +34,13 @@ Shape::~Shape() {
 Rectangle<int> Shape::getShape() {
     return Rectangle<int>(m_xPos, m_yPos, m_width, m_height);
 
+}
+
+void Shape::random() {
+    srand((unsigned)time(0));
+    int logXPos[] = { 15, 105, 195, 285, 375, 465, 555, 645 };
+    m_length = sizeof(logXPos) / sizeof(int);
+    m_random = logXPos[rand() % m_length];
 }
 
 void Shape::stamTick() {
@@ -48,12 +56,20 @@ void Shape::stamTick() {
 }
 
 void Shape::tick(int verticalVelocity) {
-
     m_yPos += verticalVelocity;
-    
+    if (m_yPos > 1000) {
+        m_yPos = -300;
+        
+        random();
+        m_xPos = m_random;
+        DBG(m_random);
 
-    //DO bounds checking here.. do I go offscreen.
-
+        if (alive) {
+            m_score++;
+            DBG(m_score);
+        }
+    }
+    //DO bounds checking here.. do I go offscreen
 }
 
 void Shape::jumpRight() {

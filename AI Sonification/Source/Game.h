@@ -19,25 +19,22 @@ class Game : public Component, public KeyListener
 private:
     Shape m_shape;
     Frog m_frog;
-    Log m_log;
+    Log m_log, m_log2;
+    int m_numOfLogs;
 
 public: 
-    bool isRunning;
-    //int floorHeight;
-    int logRunning;
 
-
-    
     Game();
     ~Game();
 
     void update();
     void tick();
+   
     void mouseDown(const MouseEvent& event);
     bool keyPressed(const KeyPress& key, Component* originatingComponent);
+   
     void paint(Graphics&) override;
     void resized() override;
     
-
 
 };
