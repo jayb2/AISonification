@@ -46,13 +46,13 @@ void Shape::random() {
 void Shape::stamTick() {
     static int frameCount = 0;
     ++frameCount;
-    //DBG("FRAMECOUNT");
-    //DBG(frameCount);
 
     if (frameCount % 100 == 0) {
         ++stamina;
         if (stamina > maxStamina) stamina = maxStamina;
     }
+
+    //DBG(frameCount);
 }
 
 void Shape::tick(int verticalVelocity) {

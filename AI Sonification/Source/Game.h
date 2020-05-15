@@ -20,7 +20,8 @@ private:
     Shape m_shape;
     Frog m_frog;
     Log m_log, m_log2;
-    int m_numOfLogs;
+    int m_numOfLogs, m_logFrame;
+    
 
 public: 
 

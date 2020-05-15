@@ -12,7 +12,7 @@
 #include "Game.h"
 
 
-Game::Game() :m_shape(0, 0, 0, 0, Colours::white), m_frog(105, 810, 60, 60, Colours::hotpink), m_log(105, -500, 60, 200, Colours::sandybrown), m_log2(0, 0, 0, 0, Colours::sandybrown) {
+Game::Game() :m_shape(0, 0, 0, 0, Colours::white), m_frog(105, 810, 60, 60, Colours::hotpink), m_log(105, -500, 60, 200, Colours::sandybrown), m_log2(15, 0, 60, 200, Colours::sandybrown) {
     addAndMakeVisible(m_shape);
     addMouseListener(this, true);
     addKeyListener(this);
@@ -28,6 +28,22 @@ void Game::update() {
     repaint();
     m_frog.stamTick();
     m_log.tick(5);
+    
+    static int logFrame = 0;
+    ++logFrame;
+    m_logFrame = (logFrame / 1000);
+
+    if (m_logFrame >= 1) {
+        m_log2.tick(5);
+        
+        if (m_frog.getShape().intersects(m_log2.getShape())) {
+            m_frog.alive = false;
+            DBG("dead");
+        }
+    }
+    
+
+
  
 
     if (m_frog.getShape().intersects(m_log.getShape())) {
@@ -74,7 +90,7 @@ void Game::paint(Graphics& g)
 
     //Makes the grid lines for rough guidance on what the lanes are
     //May delete later on?
-    g.setColour(Colours::white);
+    g.setColour(Colours::cyan);
     for (int n = 0; n < 8; ++n)
     {
         g.drawLine((n * 90), 0, (n * 90), 920);
@@ -97,7 +113,9 @@ void Game::paint(Graphics& g)
 
     //Draws the logs
     m_log.draw(g);
-
+    if (m_logFrame >= 1) {
+        m_log2.draw(g);
+    }
 }
 
 void Game::resized() {
