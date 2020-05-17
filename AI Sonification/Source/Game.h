@@ -12,14 +12,19 @@
 #include <JuceHeader.h>
 #include "Frog.h"
 #include "Log.h"
+#include "Fish.h"
+#include <vector>
 
+typedef std::vector<Log> LogVector;
+typedef std::vector<Fish> FishVector;
 
 class Game : public Component, public KeyListener
 {
 private:
     Shape m_shape;
     Frog m_frog;
-    Log m_log, m_log2;
+    LogVector m_logs;
+    FishVector m_fish;
     int m_numOfLogs, m_logFrame;
     
 

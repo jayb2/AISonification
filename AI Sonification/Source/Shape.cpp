@@ -27,6 +27,20 @@ Shape::Shape(int x, int y, int w, int h, Colour col) :
 
 }
 
+Shape::Shape(const Shape& other) :
+    m_xPos(other.m_xPos),
+    m_yPos(other.m_yPos),
+    m_width(other.m_width),
+    m_height(other.m_height),
+    m_col(other.m_col),
+    alive(other.alive),
+    maxStamina(other.maxStamina),
+    stamina(other.stamina),
+    m_score(other.m_score)
+{
+
+}
+
 Shape::~Shape() {
 
 }
@@ -62,11 +76,11 @@ void Shape::tick(int verticalVelocity) {
         
         random();
         m_xPos = m_random;
-        DBG(m_random);
 
         if (alive) {
             m_score++;
-            DBG(m_score);
+            score = m_score;
+            DBG(score);
         }
     }
     //DO bounds checking here.. do I go offscreen
@@ -96,7 +110,7 @@ void Shape::jumpLeft() {
 
 void Shape::doubleJumpRight() {
  
-    if (m_xPos < 556 && stamina > 0) {
+    if (m_xPos < 554 && stamina > 0) {
         m_xPos += 180;
         --stamina;
     }
@@ -107,7 +121,7 @@ void Shape::doubleJumpRight() {
 
 void Shape::doubleJumpLeft() {
     
-    if (m_xPos > 105 && stamina > 0) {
+    if (m_xPos > 106 && stamina > 0) {
         m_xPos -= 180;
         --stamina;
     }

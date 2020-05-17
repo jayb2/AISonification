@@ -24,10 +24,12 @@ public:
     //int velocity;
     bool alive;
     int maxStamina, stamina;
-    int hearts;
+    int score;
 
 
     Shape(int x, int y, int w, int h, Colour col);
+    Shape(const Shape& other);
+
     ~Shape();
 
     Rectangle<int> getShape();

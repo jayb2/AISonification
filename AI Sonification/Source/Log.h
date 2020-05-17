@@ -14,9 +14,14 @@
 class Log : public Shape {
     int m_acceleration;
     int m_numOfLogs;
+    bool m_isActive = true;
 
 public:
 
     Log(int x, int y, int w, int h, Colour col);
+    Log(const Log& other);
     ~Log();
+    bool isActive();
+    void activate();
+    void deactivate();
 }; 
