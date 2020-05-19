@@ -34,16 +34,16 @@ jobs:
 
     # Runs a set of commands using the runners shell
     - name: Xcode Build
-      run: xcodebuild -project TestProject/Builds/MacOSX/TestProject.xcodeproj
+      run: xcodebuild -project AI Sonification/Builds/MacOSX/AI Sonfication.xcodeproj
     
     - name: Print Build output
-      run: ls -R TestProject/Builds  
+      run: ls -R AI Sonfication/Builds  
     
     
     - name: Copy app
       run: |
         mkdir Mac,
-        cp -rf TestProject/Builds/MacOSX/build/Debug/ Mac
+        cp -rf AI Sonfication/Builds/MacOSX/build/Debug/ Mac
     
     - name: Check folders
       run: ls
@@ -61,7 +61,7 @@ jobs:
       uses: actions/upload-artifact@v1.0.0
       with:
         # Artifact name
-        name: TestProject-Mac
+        name: AI Sonfication-Mac
         # Directory containing files to upload
         path: release.zip
         
@@ -82,19 +82,19 @@ jobs:
       uses: microsoft/setup-msbuild@v1.0.0
       
     - name: VStudio Build
-      run: msbuild TestProject/Builds/VisualStudio2019/TestProject.sln
+      run: msbuild AI Sonfication/Builds/VisualStudio2019/AI Sonfication.sln
     
     - name: Make App Folder
       run:  mkdir TestProjectBuild
     
     - name: Copy build files
-      run: cp -r TestProject/Builds/VisualStudio2019/x64/Debug/App/ TestProjectBuild  
+      run: cp -r AI Sonfication/Builds/VisualStudio2019/x64/Debug/App/AI SonficationBuild  
     
     - name: Check copy
-      run: ls TestProjectBuild/
+      run: ls AI SonficationBuild/
       
     - name: zip 
-      run: 7z a  TestProjectWindows TestProjectBuild
+      run: 7z a  AI SonficationWindows AI SonficationBuild
     - name: Print Contents
       run: ls
       
@@ -102,6 +102,6 @@ jobs:
       uses: actions/upload-artifact@v1.0.0
       with:
         # Artifact name
-        name: TestProject-Windows
+        name: AI Sonfication-Windows
         # Directory containing files to upload
-        path: TestProjectWindows.7z
+        path: AI SonficationWindows.7z
