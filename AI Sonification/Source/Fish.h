@@ -20,5 +20,5 @@ public:
     Fish(int x, int y, int w, int h, Colour col);
     Fish(const Fish& other);
     ~Fish();
-
+    void update()override;
 };

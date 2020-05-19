@@ -13,13 +13,14 @@
 
 
 
-class Shape : public Component { 
+class Shape : public Component {
 
-   int m_xPos, m_yPos, m_width, m_height;
-   Colour m_col;
-   int m_length, m_random, m_score;
+    int m_xPos, m_yPos, m_width, m_height;
+    Colour m_col;
+    int m_length, m_random, m_score;
 
-
+    std::vector<Image> m_images;
+    int m_imageToDraw;
 public:
     //int velocity;
     bool alive;
@@ -37,16 +38,20 @@ public:
     void random();
     void stamTick();
     void tick(int verticalVelocity);
-    
+
+    virtual void update() = 0;
+
     void jumpRight();
     void jumpLeft();
-    
+
     void doubleJumpRight();
     void doubleJumpLeft();
 
     void draw(Graphics&);
 
+    void loadImage(Image im);
+    void setImageIndex(int index);
 
 
 
- };
+};

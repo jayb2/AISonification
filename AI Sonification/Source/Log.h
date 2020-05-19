@@ -24,4 +24,6 @@ public:
     bool isActive();
     void activate();
     void deactivate();
-}; 
+    void update()override;
+
+};

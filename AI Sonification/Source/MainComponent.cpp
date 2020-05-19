@@ -15,10 +15,10 @@ MainComponent::MainComponent()
     // you add any child components.
 
     addAndMakeVisible(m_game);
-    
 
-    setSize (720, 920);
-    setFramesPerSecond (60); // This sets the frequency of the update calls.
+
+    setSize(720, 940);
+    setFramesPerSecond(60); // This sets the frequency of the update calls.
 }
 
 MainComponent::~MainComponent()
@@ -34,10 +34,10 @@ void MainComponent::update()
 }
 
 //==============================================================================
-void MainComponent::paint (Graphics& g)
+void MainComponent::paint(Graphics& g)
 {
     // (Our component is opaque, so we must completely fill the background with a solid colour)
-    g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
+    g.fillAll(getLookAndFeel().findColour(ResizableWindow::backgroundColourId));
 
     // You can add your drawing code here!
 }
@@ -50,5 +50,5 @@ void MainComponent::resized()
 
     m_game.setBounds(getLocalBounds());
 
-    
+
 }

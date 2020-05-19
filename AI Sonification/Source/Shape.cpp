@@ -21,8 +21,8 @@ Shape::Shape(int x, int y, int w, int h, Colour col) :
     alive(true),
     maxStamina(1),
     stamina(maxStamina),
-    m_score(0)
-
+    m_score(0),
+    m_imageToDraw(-1)
 {
 
 }
@@ -36,7 +36,9 @@ Shape::Shape(const Shape& other) :
     alive(other.alive),
     maxStamina(other.maxStamina),
     stamina(other.stamina),
-    m_score(other.m_score)
+    m_score(other.m_score),
+    m_imageToDraw(other.m_imageToDraw),
+    m_images(other.m_images)
 {
 
 }
@@ -73,7 +75,7 @@ void Shape::tick(int verticalVelocity) {
     m_yPos += verticalVelocity;
     if (m_yPos > 1000) {
         m_yPos = -300;
-        
+
         random();
         m_xPos = m_random;
 
@@ -83,6 +85,7 @@ void Shape::tick(int verticalVelocity) {
             DBG(score);
         }
     }
+    update();
     //DO bounds checking here.. do I go offscreen
 }
 
@@ -109,7 +112,7 @@ void Shape::jumpLeft() {
 }
 
 void Shape::doubleJumpRight() {
- 
+
     if (m_xPos < 554 && stamina > 0) {
         m_xPos += 180;
         --stamina;
@@ -120,7 +123,7 @@ void Shape::doubleJumpRight() {
 }
 
 void Shape::doubleJumpLeft() {
-    
+
     if (m_xPos > 106 && stamina > 0) {
         m_xPos -= 180;
         --stamina;
@@ -138,6 +141,24 @@ void Shape::draw(Graphics& g)
     g.saveState();
     g.setColour(m_col);
     g.fillRect(getShape());
+    if (m_imageToDraw >= 0 && m_images.size() > 0) {
+        g.drawImage(m_images[m_imageToDraw], getShape().toFloat());
+    }
+
+
     g.restoreState();
 }
 
+
+void Shape::loadImage(Image im) {
+    m_images.push_back(im);
+}
+void Shape::setImageIndex(int index) {
+
+    if (index >= 0 && index < m_images.size()) {
+
+        m_imageToDraw = index;
+
+    }
+
+}

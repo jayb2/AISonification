@@ -12,7 +12,7 @@
 #include "Shape.h"
 
 class Frog : public Shape {
-    
+
 public:
 
     //void reset();
@@ -21,5 +21,5 @@ public:
     ~Frog();
 
     void paint(Graphics&);
-
+    void update()override;
 };

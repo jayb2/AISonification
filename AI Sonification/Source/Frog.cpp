@@ -12,7 +12,7 @@
 #include "Frog.h"
 
 Frog::Frog(int x, int y, int w, int h, Colour col) :
-    Shape{x, y, w, h, col}
+    Shape{ x, y, w, h, col }
 {
 
 }
@@ -26,3 +26,6 @@ void Frog::paint(Graphics& g) {
 
 }
 
+void  Frog::update() {
+
+};

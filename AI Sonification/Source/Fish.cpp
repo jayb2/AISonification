@@ -25,3 +25,6 @@ Fish::Fish(const Fish& other) :
 Fish::~Fish() {
 
 }
+void Fish::update() {
+
+};
