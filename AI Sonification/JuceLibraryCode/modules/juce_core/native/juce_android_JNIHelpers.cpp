@@ -116,7 +116,7 @@ struct SystemJavaClassComparator
 
 //==============================================================================
 JNIClassBase::JNIClassBase (const char* cp, int classMinSDK, const void* bc, size_t n)
-    : classPath (cp), byteCode (bc), byteCodeSize (n), minSDK (classMinSDK), classRef (nullptr)
+    : classPath (cp), byteCode (bc), byteCodeSize (n), minSDK (classMinSDK), classRef (0)
 {
     SystemJavaClassComparator comparator;
 
@@ -162,13 +162,13 @@ void JNIClassBase::initialise (JNIEnv* env)
             LocalRef<jobject> defaultClassLoader (env->CallStaticObjectMethod (JavaClassLoader, JavaClassLoader.getSystemClassLoader));
             tryLoadingClassWithClassLoader (env, defaultClassLoader.get());
 
-            if (classRef == nullptr)
+            if (classRef == 0)
             {
                 for (auto& byteCodeLoader : byteCodeLoaders)
                 {
                     tryLoadingClassWithClassLoader (env, byteCodeLoader.get());
 
-                    if (classRef != nullptr)
+                    if (classRef != 0)
                         break;
                 }
 
@@ -234,10 +234,10 @@ void JNIClassBase::initialise (JNIEnv* env)
             }
         }
 
-        if (classRef == nullptr)
+        if (classRef == 0)
             classRef = (jclass) env->NewGlobalRef (LocalRef<jobject> (env->FindClass (classPath)));
 
-        jassert (classRef != nullptr);
+        jassert (classRef != 0);
         initialiseFields (env);
     }
 }
@@ -253,7 +253,7 @@ void JNIClassBase::tryLoadingClassWithClassLoader (JNIEnv* env, jobject classLoa
     if (jthrowable exception = env->ExceptionOccurred ())
     {
         env->ExceptionClear();
-        classObj = nullptr;
+        classObj = 0;
     }
 
     // later versions of Android don't throw at all, so re-check the object
@@ -263,7 +263,7 @@ void JNIClassBase::tryLoadingClassWithClassLoader (JNIEnv* env, jobject classLoa
 
 void JNIClassBase::release (JNIEnv* env)
 {
-    if (classRef != nullptr)
+    if (classRef != 0)
         env->DeleteGlobalRef (classRef);
 }
 
@@ -284,28 +284,28 @@ void JNIClassBase::releaseAllClasses (JNIEnv* env)
 jmethodID JNIClassBase::resolveMethod (JNIEnv* env, const char* methodName, const char* params)
 {
     jmethodID m = env->GetMethodID (classRef, methodName, params);
-    jassert (m != nullptr);
+    jassert (m != 0);
     return m;
 }
 
 jmethodID JNIClassBase::resolveStaticMethod (JNIEnv* env, const char* methodName, const char* params)
 {
     jmethodID m = env->GetStaticMethodID (classRef, methodName, params);
-    jassert (m != nullptr);
+    jassert (m != 0);
     return m;
 }
 
 jfieldID JNIClassBase::resolveField (JNIEnv* env, const char* fieldName, const char* signature)
 {
     jfieldID f = env->GetFieldID (classRef, fieldName, signature);
-    jassert (f != nullptr);
+    jassert (f != 0);
     return f;
 }
 
 jfieldID JNIClassBase::resolveStaticField (JNIEnv* env, const char* fieldName, const char* signature)
 {
     jfieldID f = env->GetStaticFieldID (classRef, fieldName, signature);
-    jassert (f != nullptr);
+    jassert (f != 0);
     return f;
 }
 
@@ -418,27 +418,13 @@ jobject ActivityLifecycleCallbacks::invoke (jobject proxy, jobject method, jobje
     auto activity = env->GetArrayLength (args) > 0 ? env->GetObjectArrayElement (args, 0) : (jobject) nullptr;
     auto bundle   = env->GetArrayLength (args) > 1 ? env->GetObjectArrayElement (args, 1) : (jobject) nullptr;
 
-    if      (methodName == "onActivityPreCreated")             { onActivityPreCreated (activity, bundle);            return nullptr; }
-    else if (methodName == "onActivityPreDestroyed")           { onActivityPreDestroyed (activity);                  return nullptr; }
-    else if (methodName == "onActivityPrePaused")              { onActivityPrePaused (activity);                     return nullptr; }
-    else if (methodName == "onActivityPreResumed")             { onActivityPreResumed (activity);                    return nullptr; }
-    else if (methodName == "onActivityPreSaveInstanceState")   { onActivityPreSaveInstanceState (activity, bundle);  return nullptr; }
-    else if (methodName == "onActivityPreStarted")             { onActivityPreStarted (activity);                    return nullptr; }
-    else if (methodName == "onActivityPreStopped")             { onActivityPreStopped (activity);                    return nullptr; }
-    else if (methodName == "onActivityCreated")                { onActivityCreated (activity, bundle);               return nullptr; }
-    else if (methodName == "onActivityDestroyed")              { onActivityDestroyed (activity);                     return nullptr; }
-    else if (methodName == "onActivityPaused")                 { onActivityPaused (activity);                        return nullptr; }
-    else if (methodName == "onActivityResumed")                { onActivityResumed (activity);                       return nullptr; }
-    else if (methodName == "onActivitySaveInstanceState")      { onActivitySaveInstanceState (activity, bundle);     return nullptr; }
-    else if (methodName == "onActivityStarted")                { onActivityStarted (activity);                       return nullptr; }
-    else if (methodName == "onActivityStopped")                { onActivityStopped (activity);                       return nullptr; }
-    else if (methodName == "onActivityPostCreated")            { onActivityPostCreated (activity, bundle);           return nullptr; }
-    else if (methodName == "onActivityPostDestroyed")          { onActivityPostDestroyed (activity);                 return nullptr; }
-    else if (methodName == "onActivityPostPaused")             { onActivityPostPaused (activity);                    return nullptr; }
-    else if (methodName == "onActivityPostResumed")            { onActivityPostResumed (activity);                   return nullptr; }
-    else if (methodName == "onActivityPostSaveInstanceState")  { onActivityPostSaveInstanceState (activity, bundle); return nullptr; }
-    else if (methodName == "onActivityPostStarted")            { onActivityPostStarted (activity);                   return nullptr; }
-    else if (methodName == "onActivityPostStopped")            { onActivityPostStopped (activity);                   return nullptr; }
+    if      (methodName == "onActivityCreated")             { onActivityCreated (activity, bundle); return nullptr; }
+    else if (methodName == "onActivityDestroyed")           { onActivityDestroyed (activity); return nullptr; }
+    else if (methodName == "onActivityPaused")              { onActivityPaused (activity); return nullptr; }
+    else if (methodName == "onActivityResumed")             { onActivityResumed (activity); return nullptr; }
+    else if (methodName == "onActivitySaveInstanceState")   { onActivitySaveInstanceState (activity, bundle); return nullptr; }
+    else if (methodName == "onActivityStarted")             { onActivityStarted (activity); return nullptr; }
+    else if (methodName == "onActivityStopped")             { onActivityStopped (activity); return nullptr; }
 
     return AndroidInterfaceImplementer::invoke (proxy, method, args);
 }
@@ -454,10 +440,10 @@ int getAndroidSDKVersion()
         auto* env = getEnv();
 
         auto buildVersion = env->FindClass ("android/os/Build$VERSION");
-        jassert (buildVersion != nullptr);
+        jassert (buildVersion != 0);
 
         auto sdkVersionField = env->GetStaticFieldID (buildVersion, "SDK_INT", "I");
-        jassert (sdkVersionField != nullptr);
+        jassert (sdkVersionField != 0);
 
         return env->GetStaticIntField (buildVersion, sdkVersionField);
     }();
@@ -595,7 +581,7 @@ void FragmentOverlay::onRequestPermissionsResultNative (JNIEnv* env, jobject, jl
 
         if (n > 0)
         {
-            auto* data = env->GetIntArrayElements (jGrantResults, nullptr);
+            auto* data = env->GetIntArrayElements (jGrantResults, 0);
 
             for (int i = 0; i < n; ++i)
                 grantResults.add (data[i]);
@@ -620,7 +606,7 @@ class ActivityLauncher   : public FragmentOverlay
 public:
     ActivityLauncher (const LocalRef<jobject>& intentToUse,
                       int requestCodeToUse,
-                      std::function<void(int, int, LocalRef<jobject>)> && callbackToUse)
+                      std::function<void (int, int, LocalRef<jobject>)> && callbackToUse)
         : intent (intentToUse), requestCode (requestCodeToUse), callback (std::move (callbackToUse))
     {}
 
@@ -642,11 +628,11 @@ public:
 private:
     GlobalRef intent;
     int requestCode;
-    std::function<void(int, int, LocalRef<jobject>)> callback;
+    std::function<void (int, int, LocalRef<jobject>)> callback;
 };
 
 void startAndroidActivityForResult (const LocalRef<jobject>& intent, int requestCode,
-                                    std::function<void(int, int, LocalRef<jobject>)> && callback)
+                                    std::function<void (int, int, LocalRef<jobject>)> && callback)
 {
     auto* activityLauncher = new ActivityLauncher (intent, requestCode, std::move (callback));
     activityLauncher->open();

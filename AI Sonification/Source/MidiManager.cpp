@@ -36,7 +36,7 @@ MidiManager::MidiManager() {
 
 void MidiManager::setOutput(int outputName) {
 
-	m_output = MidiOutput::openDevice(outputName);
+	m_output->MidiOutput::openDevice(outputName);
 
 	MidiMessage testMessage = MidiMessage::noteOn(1, 60, (uint8)100);
 

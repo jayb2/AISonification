@@ -311,11 +311,7 @@ public:
                         p3 += last;
                     }
 
-                    p2 = last;
-
-                    if (CharPointer_ASCII ("CcSs").indexOf (previousCommand) >= 0)
-                        p2 += (last - last2);
-
+                    p2 = last + (last - last2);
                     path.cubicTo (p2, p1, p3);
 
                     last2 = p1;
@@ -348,11 +344,8 @@ public:
                     if (isRelative)
                         p1 += last;
 
-                    p2 = last;
-
-                    if (CharPointer_ASCII ("QqTt").indexOf (previousCommand) >= 0)
-                        p2 += (last - last2);
-
+                    p2 = CharPointer_ASCII ("QqTt").indexOf (previousCommand) >= 0 ? last + (last - last2)
+                                                                                   : p1;
                     path.quadraticTo (p2, p1);
 
                     last2 = p2;
@@ -365,19 +358,18 @@ public:
                 if (parseCoordsOrSkip (d, p1, false))
                 {
                     String num;
-                    bool flagValue = false;
 
                     if (parseNextNumber (d, num, false))
                     {
-                        auto angle = degreesToRadians (num.getFloatValue());
+                        const float angle = degreesToRadians (num.getFloatValue());
 
-                        if (parseNextFlag (d, flagValue))
+                        if (parseNextNumber (d, num, false))
                         {
-                            auto largeArc = flagValue;
+                            const bool largeArc = num.getIntValue() != 0;
 
-                            if (parseNextFlag (d, flagValue))
+                            if (parseNextNumber (d, num, false))
                             {
-                                auto sweep = flagValue;
+                                const bool sweep = num.getIntValue() != 0;
 
                                 if (parseCoordsOrSkip (d, p2, false))
                                 {
@@ -817,7 +809,7 @@ private:
             if (drawableClipPath->getNumChildComponents() > 0)
             {
                 setCommonAttributes (*drawableClipPath, xmlPath);
-                target.setClipPath (std::move (drawableClipPath));
+                target.setClipPath (drawableClipPath.release());
                 return true;
             }
         }
@@ -1065,7 +1057,7 @@ private:
         if (xml->hasTagName ("use"))
             return useText (xml);
 
-        if (! xml->hasTagName ("text") && ! xml->hasTagNameIgnoringNamespace ("tspan"))
+        if (! xml->hasTagName ("text"))
             return nullptr;
 
         Array<float> xCoords, yCoords, dxCoords, dyCoords;
@@ -1502,22 +1494,6 @@ private:
         return true;
     }
 
-    static bool parseNextFlag (String::CharPointerType& text, bool& value)
-    {
-        while (text.isWhitespace() || *text == ',')
-            ++text;
-
-        if (*text != '0' && *text != '1')
-            return false;
-
-        value = *(text++) != '0';
-
-        while (text.isWhitespace() || *text == ',')
-             ++text;
-
-        return true;
-    }
-
     //==============================================================================
     Colour parseColour (const XmlPath& xml, StringRef attributeName, const Colour defaultColour) const
     {
@@ -1720,21 +1696,32 @@ private:
 
 
 //==============================================================================
-std::unique_ptr<Drawable> Drawable::createFromSVG (const XmlElement& svgDocument)
+Drawable* Drawable::createFromSVG (const XmlElement& svgDocument)
 {
     if (! svgDocument.hasTagNameIgnoringNamespace ("svg"))
-        return {};
+        return nullptr;
 
     SVGState state (&svgDocument);
-    return std::unique_ptr<Drawable> (state.parseSVGElement (SVGState::XmlPath (&svgDocument, {})));
+    return state.parseSVGElement (SVGState::XmlPath (&svgDocument, nullptr));
 }
 
-std::unique_ptr<Drawable> Drawable::createFromSVGFile (const File& svgFile)
+Drawable* Drawable::createFromSVGFile (const File& svgFile)
 {
-    if (auto xml = parseXMLIfTagMatches (svgFile, "svg"))
-        return createFromSVG (*xml);
+    XmlDocument doc (svgFile);
+    std::unique_ptr<XmlElement> outer (doc.getDocumentElement (true));
 
-    return {};
+    if (outer != nullptr && outer->hasTagName ("svg"))
+    {
+        std::unique_ptr<XmlElement> svgDocument (doc.getDocumentElement());
+
+        if (svgDocument != nullptr)
+        {
+            SVGState state (svgDocument.get(), svgFile);
+            return state.parseSVGElement (SVGState::XmlPath (svgDocument.get(), nullptr));
+        }
+    }
+
+    return nullptr;
 }
 
 Path Drawable::parseSVGPath (const String& svgPath)

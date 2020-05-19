@@ -115,7 +115,7 @@ public:
         }
     }
 
-    ~Native() override
+    ~Native()
     {
         exitModalState (0);
     }
@@ -144,6 +144,9 @@ private:
 
             if (auto* parentController = peer->controller)
                 [parentController showViewController: controller.get() sender: parentController];
+
+            if (peer->view.window != nil)
+                peer->view.window.autoresizesSubviews = YES;
         }
     }
 

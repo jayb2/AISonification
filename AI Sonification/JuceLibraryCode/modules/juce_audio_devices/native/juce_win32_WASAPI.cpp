@@ -454,10 +454,6 @@ public:
         if (client != nullptr)
             client->Stop();
 
-        // N.B. this is needed to prevent a double-deletion of the IAudioSessionEvents object
-        // on older versions of Windows
-        Thread::sleep (5);
-
         deleteSessionEventCallback();
         client = nullptr;
         ResetEvent (clientEvent);
@@ -1020,9 +1016,7 @@ public:
                 sampleRates = d->rates;
             }
 
-            bufferSizes.clear();
             bufferSizes.addUsingDefaultSort (defaultBufferSize);
-
             if (minBufferSize != defaultBufferSize)
                 bufferSizes.addUsingDefaultSort (minBufferSize);
 
@@ -1445,7 +1439,7 @@ public:
     }
 
     //==============================================================================
-    void scanForDevices() override
+    void scanForDevices()
     {
         hasScanned = true;
 
@@ -1458,7 +1452,7 @@ public:
               outputDeviceIds, inputDeviceIds);
     }
 
-    StringArray getDeviceNames (bool wantInputNames) const override
+    StringArray getDeviceNames (bool wantInputNames) const
     {
         jassert (hasScanned); // need to call scanForDevices() before doing this
 
@@ -1466,13 +1460,13 @@ public:
                               : outputDeviceNames;
     }
 
-    int getDefaultDeviceIndex (bool /*forInput*/) const override
+    int getDefaultDeviceIndex (bool /*forInput*/) const
     {
         jassert (hasScanned); // need to call scanForDevices() before doing this
         return 0;
     }
 
-    int getIndexOfDevice (AudioIODevice* device, bool asInput) const override
+    int getIndexOfDevice (AudioIODevice* device, bool asInput) const
     {
         jassert (hasScanned); // need to call scanForDevices() before doing this
 
@@ -1483,10 +1477,10 @@ public:
         return -1;
     }
 
-    bool hasSeparateInputsAndOutputs() const override    { return true; }
+    bool hasSeparateInputsAndOutputs() const    { return true; }
 
     AudioIODevice* createDevice (const String& outputDeviceName,
-                                 const String& inputDeviceName) override
+                                 const String& inputDeviceName)
     {
         jassert (hasScanned); // need to call scanForDevices() before doing this
 

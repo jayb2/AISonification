@@ -41,7 +41,7 @@ LookAndFeel::LookAndFeel()
     /* if this fails it means you're trying to create a LookAndFeel object before
        the static Colours have been initialised. That ain't gonna work. It probably
        means that you're using a static LookAndFeel object and that your compiler has
-       decided to initialise it before the Colours class.
+       decided to intialise it before the Colours class.
     */
     jassert (Colours::white == Colour (0xffffffff));
 
@@ -81,7 +81,7 @@ Colour LookAndFeel::findColour (int colourID) const noexcept
     auto index = colours.indexOf (c);
 
     if (index >= 0)
-        return colours[index].colour;
+        return colours.getReference (index).colour;
 
     jassertfalse;
     return Colours::black;
@@ -168,11 +168,10 @@ MouseCursor LookAndFeel::getMouseCursorFor (Component& component)
     return cursor;
 }
 
-std::unique_ptr<LowLevelGraphicsContext> LookAndFeel::createGraphicsContext (const Image& imageToRenderOn,
-                                                                             Point<int> origin,
-                                                                             const RectangleList<int>& initialClip)
+LowLevelGraphicsContext* LookAndFeel::createGraphicsContext (const Image& imageToRenderOn, const Point<int>& origin,
+                                                             const RectangleList<int>& initialClip)
 {
-    return std::make_unique<LowLevelGraphicsSoftwareRenderer> (imageToRenderOn, origin, initialClip);
+    return new LowLevelGraphicsSoftwareRenderer (imageToRenderOn, origin, initialClip);
 }
 
 //==============================================================================

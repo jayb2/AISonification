@@ -149,6 +149,7 @@
      installed, or you've not got your paths set up correctly to find its header
      files.
   */
+  #include <rtdk.h>
   #include <Bela.h>
   #include <Midi.h>
  #endif
@@ -178,7 +179,7 @@
 #include "audio_io/juce_AudioIODevice.cpp"
 #include "audio_io/juce_AudioIODeviceType.cpp"
 #include "midi_io/juce_MidiMessageCollector.cpp"
-#include "midi_io/juce_MidiDevices.cpp"
+#include "midi_io/juce_MidiOutput.cpp"
 #include "sources/juce_AudioSourcePlayer.cpp"
 #include "sources/juce_AudioTransportSource.cpp"
 #include "native/juce_MidiDataConcatenator.h"

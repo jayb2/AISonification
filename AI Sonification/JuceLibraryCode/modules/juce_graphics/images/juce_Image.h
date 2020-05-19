@@ -326,23 +326,23 @@ public:
             The coordinate you provide here isn't checked, so it's the caller's responsibility to make
             sure it's not out-of-range.
         */
-        inline uint8* getLinePointer (int y) const noexcept                 { return data + (size_t) y * (size_t) lineStride; }
+        inline uint8* getLinePointer (int y) const noexcept                 { return data + y * lineStride; }
 
         /** Returns a pointer to a pixel in the image.
             The coordinates you give here are not checked, so it's the caller's responsibility to make sure they're
             not out-of-range.
         */
-        inline uint8* getPixelPointer (int x, int y) const noexcept         { return data + (size_t) y * (size_t) lineStride + (size_t) x * (size_t) pixelStride; }
+        inline uint8* getPixelPointer (int x, int y) const noexcept         { return data + y * lineStride + x * pixelStride; }
 
         /** Returns the colour of a given pixel.
             For performance reasons, this won't do any bounds-checking on the coordinates, so it's the caller's
-            responsibility to make sure they're within the image's size.
+            repsonsibility to make sure they're within the image's size.
         */
         Colour getPixelColour (int x, int y) const noexcept;
 
         /** Sets the colour of a given pixel.
             For performance reasons, this won't do any bounds-checking on the coordinates, so it's the caller's
-            responsibility to make sure they're within the image's size.
+            repsonsibility to make sure they're within the image's size.
         */
         void setPixelColour (int x, int y, Colour colour) const noexcept;
 
@@ -398,7 +398,7 @@ public:
     /** Creates a context suitable for drawing onto this image.
         Don't call this method directly! It's used internally by the Graphics class.
     */
-    std::unique_ptr<LowLevelGraphicsContext> createLowLevelContext() const;
+    LowLevelGraphicsContext* createLowLevelContext() const;
 
     /** Returns the number of Image objects which are currently referring to the same internal
         shared image data.
@@ -449,11 +449,11 @@ public:
     using Ptr = ReferenceCountedObjectPtr<ImagePixelData>;
 
     /** Creates a context that will draw into this image. */
-    virtual std::unique_ptr<LowLevelGraphicsContext> createLowLevelContext() = 0;
+    virtual LowLevelGraphicsContext* createLowLevelContext() = 0;
     /** Creates a copy of this image. */
     virtual Ptr clone() = 0;
     /** Creates an instance of the type of this image. */
-    virtual std::unique_ptr<ImageType> createType() const = 0;
+    virtual ImageType* createType() const = 0;
     /** Initialises a BitmapData object. */
     virtual void initialiseBitmapData (Image::BitmapData&, int x, int y, Image::BitmapData::ReadWriteMode) = 0;
     /** Returns the number of Image objects which are currently referring to the same internal

@@ -352,9 +352,9 @@ public:
 
         auto status = AudioFileOpenWithCallbacks (this,
                                                   &readCallback,
-                                                  nullptr,  // write needs to be null to avoid permissions errors
+                                                  nullptr,  // write needs to be null to avoid permisisions errors
                                                   &getSizeCallback,
-                                                  nullptr,  // setSize needs to be null to avoid permissions errors
+                                                  nullptr,  // setSize needs to be null to avoid permisisions errors
                                                   0,        // AudioFileTypeID inFileTypeHint
                                                   &audioFileID);
         if (status == noErr)
@@ -475,7 +475,7 @@ public:
         while (numSamples > 0)
         {
             auto numThisTime = jmin (8192, numSamples);
-            auto numBytes = (size_t) numThisTime * sizeof (float);
+            auto numBytes = sizeof (float) * (size_t) numThisTime;
 
             audioDataBlock.ensureSize (numBytes * numChannels, false);
             auto* data = static_cast<float*> (audioDataBlock.getData());
@@ -493,15 +493,6 @@ public:
 
             if (status != noErr)
                 return false;
-
-            if (numFramesToRead == 0)
-                break;
-
-            if ((int) numFramesToRead < numThisTime)
-            {
-                numThisTime = (int) numFramesToRead;
-                numBytes    = (size_t) numThisTime * sizeof (float);
-            }
 
             for (int i = numDestChannels; --i >= 0;)
             {
@@ -601,8 +592,8 @@ AudioFormatWriter* CoreAudioFormat::createWriterFor (OutputStream*,
     return nullptr;
 }
 
-
 //==============================================================================
+// Unit tests for Core Audio layout conversions
 //==============================================================================
 #if JUCE_UNIT_TESTS
 
@@ -612,11 +603,9 @@ AudioFormatWriter* CoreAudioFormat::createWriterFor (OutputStream*,
 class CoreAudioLayoutsUnitTest  : public UnitTest
 {
 public:
-    CoreAudioLayoutsUnitTest()
-        : UnitTest ("Core Audio Layout <-> JUCE channel layout conversion", UnitTestCategories::audio)
-    {}
+    CoreAudioLayoutsUnitTest() : UnitTest ("Core Audio Layout <-> JUCE channel layout conversion", "Audio") {}
 
-    // some ambisonic tags which are not explicitly defined
+    // some ambisonic tags which are not explicitely defined
     enum
     {
         kAudioChannelLayoutTag_HOA_ACN_SN3D_0Order = (190U<<16) | 1,

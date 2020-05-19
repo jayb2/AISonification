@@ -38,7 +38,7 @@ public:
         popoverDelegate.reset ([cls.createInstance() init]);
     }
 
-    ~ContentSharerNativeImpl() override
+    ~ContentSharerNativeImpl()
     {
         exitModalState (0);
     }
@@ -164,6 +164,9 @@ private:
 
             if (auto* parentController = peer->controller)
                 [parentController showViewController: controller.get() sender: parentController];
+
+            if (peer->view.window != nil)
+                peer->view.window.autoresizesSubviews = YES;
         }
     }
 

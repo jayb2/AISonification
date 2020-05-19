@@ -816,8 +816,7 @@ struct JavascriptEngine::RootObject   : public DynamicObject
             for (int i = 0; i < values.size(); ++i)
                 a.add (values.getUnchecked(i)->getResult (s));
 
-            // std::move() needed here for older compilers
-            return std::move (a);
+            return a;
         }
 
         OwnedArray<Expression> values;
@@ -1184,7 +1183,7 @@ struct JavascriptEngine::RootObject   : public DynamicObject
             if (matchIf (TokenTypes::comma))
             {
                 std::unique_ptr<BlockStatement> block (new BlockStatement (location));
-                block->statements.add (std::move (s));
+                block->statements.add (s.release());
                 block->statements.add (parseVar());
                 return block.release();
             }
@@ -1626,8 +1625,7 @@ struct JavascriptEngine::RootObject   : public DynamicObject
                 for (int i = 2; i < a.numArguments; ++i)
                     array->insert (start++, get (a, i));
 
-                // std::move() needed here for older compilers
-                return std::move (itemsRemoved);
+                return itemsRemoved;
             }
 
             return var::undefined();

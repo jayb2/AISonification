@@ -56,7 +56,7 @@ struct EmptyString
     String::CharPointerType::CharType text;
 };
 
-static const EmptyString emptyString { 0x3fffffff, sizeof (String::CharPointerType::CharType), 0 };
+static const EmptyString emptyString = { 0x3fffffff, sizeof (String::CharPointerType::CharType), 0 };
 
 //==============================================================================
 class StringHolder
@@ -156,13 +156,13 @@ public:
     {
         auto* b = bufferFromText (text);
 
-        if (! isEmptyString (b))
+        if (b != (StringHolder*) &emptyString)
             ++(b->refCount);
     }
 
     static inline void release (StringHolder* const b) noexcept
     {
-        if (! isEmptyString (b))
+        if (b != (StringHolder*) &emptyString)
             if (--(b->refCount) == -1)
                 delete[] reinterpret_cast<char*> (b);
     }
@@ -182,7 +182,7 @@ public:
     {
         auto* b = bufferFromText (text);
 
-        if (isEmptyString (b))
+        if (b == (StringHolder*) &emptyString)
         {
             auto newText = createUninitialisedBytes (numBytes);
             newText.writeNull();
@@ -215,11 +215,6 @@ private:
         // (Can't use offsetof() here because of warnings about this not being a POD)
         return reinterpret_cast<StringHolder*> (reinterpret_cast<char*> (text.getAddress())
                     - (reinterpret_cast<size_t> (reinterpret_cast<StringHolder*> (128)->text) - 128));
-    }
-
-    static inline bool isEmptyString (StringHolder* other)
-    {
-        return (other->refCount.get() & 0x30000000) != 0;
     }
 
     void compileTimeChecks()
@@ -571,16 +566,16 @@ JUCE_API bool JUCE_CALLTYPE operator== (const String& s1, const wchar_t* s2) noe
 JUCE_API bool JUCE_CALLTYPE operator!= (const String& s1, const wchar_t* s2) noexcept           { return s1.compare (s2) != 0; }
 JUCE_API bool JUCE_CALLTYPE operator== (const String& s1, StringRef s2) noexcept                { return s1.getCharPointer().compare (s2.text) == 0; }
 JUCE_API bool JUCE_CALLTYPE operator!= (const String& s1, StringRef s2) noexcept                { return s1.getCharPointer().compare (s2.text) != 0; }
-JUCE_API bool JUCE_CALLTYPE operator<  (const String& s1, StringRef s2) noexcept                { return s1.getCharPointer().compare (s2.text) < 0; }
-JUCE_API bool JUCE_CALLTYPE operator<= (const String& s1, StringRef s2) noexcept                { return s1.getCharPointer().compare (s2.text) <= 0; }
-JUCE_API bool JUCE_CALLTYPE operator>  (const String& s1, StringRef s2) noexcept                { return s1.getCharPointer().compare (s2.text) > 0; }
-JUCE_API bool JUCE_CALLTYPE operator>= (const String& s1, StringRef s2) noexcept                { return s1.getCharPointer().compare (s2.text) >= 0; }
 JUCE_API bool JUCE_CALLTYPE operator== (const String& s1, const CharPointer_UTF8 s2) noexcept   { return s1.getCharPointer().compare (s2) == 0; }
 JUCE_API bool JUCE_CALLTYPE operator!= (const String& s1, const CharPointer_UTF8 s2) noexcept   { return s1.getCharPointer().compare (s2) != 0; }
 JUCE_API bool JUCE_CALLTYPE operator== (const String& s1, const CharPointer_UTF16 s2) noexcept  { return s1.getCharPointer().compare (s2) == 0; }
 JUCE_API bool JUCE_CALLTYPE operator!= (const String& s1, const CharPointer_UTF16 s2) noexcept  { return s1.getCharPointer().compare (s2) != 0; }
 JUCE_API bool JUCE_CALLTYPE operator== (const String& s1, const CharPointer_UTF32 s2) noexcept  { return s1.getCharPointer().compare (s2) == 0; }
 JUCE_API bool JUCE_CALLTYPE operator!= (const String& s1, const CharPointer_UTF32 s2) noexcept  { return s1.getCharPointer().compare (s2) != 0; }
+JUCE_API bool JUCE_CALLTYPE operator>  (const String& s1, const String& s2) noexcept            { return s1.compare (s2) > 0; }
+JUCE_API bool JUCE_CALLTYPE operator<  (const String& s1, const String& s2) noexcept            { return s1.compare (s2) < 0; }
+JUCE_API bool JUCE_CALLTYPE operator>= (const String& s1, const String& s2) noexcept            { return s1.compare (s2) >= 0; }
+JUCE_API bool JUCE_CALLTYPE operator<= (const String& s1, const String& s2) noexcept            { return s1.compare (s2) <= 0; }
 
 bool String::equalsIgnoreCase (const wchar_t* const t) const noexcept
 {
@@ -738,7 +733,7 @@ void String::appendCharPointer (const CharPointerType startOfTextToAppend,
     if (extraBytesNeeded > 0)
     {
         auto byteOffsetOfNull = getByteOffsetOfEnd();
-        preallocateBytes ((size_t) extraBytesNeeded + byteOffsetOfNull);
+        preallocateBytes (byteOffsetOfNull + (size_t) extraBytesNeeded);
 
         auto* newStringStart = addBytesToPointer (text.getAddress(), (int) byteOffsetOfNull);
         memcpy (newStringStart, startOfTextToAppend.getAddress(), (size_t) extraBytesNeeded);
@@ -1934,7 +1929,7 @@ String String::toHexString (const void* const d, const int size, const int group
     if (groupSize > 0)
         numChars += size / groupSize;
 
-    String s (PreallocationBytes ((size_t) numChars * sizeof (CharPointerType::CharType)));
+    String s (PreallocationBytes (sizeof (CharPointerType::CharType) * (size_t) numChars));
 
     auto* data = static_cast<const unsigned char*> (d);
     auto dest = s.text;
@@ -2305,7 +2300,6 @@ static String serialiseDouble (double input)
     return reduceLengthOfFloatString (String (input, numberOfDecimalPlaces));
 }
 
-
 //==============================================================================
 //==============================================================================
 #if JUCE_UNIT_TESTS
@@ -2316,9 +2310,7 @@ static String serialiseDouble (double input)
 class StringTests  : public UnitTest
 {
 public:
-    StringTests()
-        : UnitTest ("String class", UnitTestCategories::text)
-    {}
+    StringTests() : UnitTest ("String class", "Text") {}
 
     template <class CharPointerType>
     struct TestUTFConversion

@@ -75,7 +75,7 @@ bool AudioFormatReader::read (int* const* destChannels,
 
         for (int i = numDestChannels; --i >= 0;)
             if (auto d = destChannels[i])
-                zeromem (d, (size_t) silence * sizeof (int));
+                zeromem (d, sizeof (int) * (size_t) silence);
 
         startOffsetInDestBuffer += silence;
         numSamplesToRead -= silence;
@@ -175,7 +175,7 @@ void AudioFormatReader::read (AudioBuffer<float>* buffer,
 
             // if the target's stereo and the source is mono, dupe the first channel..
             if (numTargetChannels > 1 && (chans[0] == nullptr || chans[1] == nullptr))
-                memcpy (dests[1], dests[0], (size_t) numSamples * sizeof (float));
+                memcpy (dests[1], dests[0], sizeof (float) * (size_t) numSamples);
 
             if (! usesFloatingPointData)
                 convertFixedToFloat (dests, 2, numSamples);

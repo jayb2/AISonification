@@ -93,8 +93,7 @@ private:
         FillType fillType;
         Font font;
         CGFontRef fontRef = {};
-        CGAffineTransform textMatrix = CGAffineTransformIdentity,
-                   inverseTextMatrix = CGAffineTransformIdentity;
+        CGAffineTransform fontTransform;
         CGGradientRef gradient = {};
     };
 

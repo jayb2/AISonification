@@ -179,18 +179,10 @@ protected:
 */
 namespace ValueSmoothingTypes
 {
-    /**
-        Used to indicate a linear smoothing between values.
-
-        @tags{Audio}
-    */
+    /** Used to indicate a linear smoothing between values. */
     struct Linear {};
 
-    /**
-        Used to indicate a smoothing between multiplicative values.
-
-        @tags{Audio}
-    */
+    /** Used to indicate a smoothing between multiplicative values. */
     struct Multiplicative {};
 }
 
@@ -416,7 +408,7 @@ class CommonSmoothedValueTests  : public UnitTest
 {
 public:
     CommonSmoothedValueTests()
-        : UnitTest ("CommonSmoothedValueTests", UnitTestCategories::smoothedValues)
+        : UnitTest ("CommonSmoothedValueTests", "SmoothedValues")
     {}
 
     void runTest() override

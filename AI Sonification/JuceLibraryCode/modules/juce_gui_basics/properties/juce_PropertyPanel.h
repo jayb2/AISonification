@@ -77,7 +77,7 @@ public:
         The components in the list will be owned by this object and will be automatically
         deleted later on when no longer needed.
 
-        To add properties without them being in a section, use addProperties().
+        To add properies without them being in a section, use addProperties().
     */
     void addSection (const String& sectionTitle,
                      const Array<PropertyComponent*>& newPropertyComponents,
@@ -123,10 +123,13 @@ public:
 
     //==============================================================================
     /** Saves the current state of open/closed sections so it can be restored later.
+
+        The caller is responsible for deleting the object that is returned.
         To restore this state, use restoreOpennessState().
+
         @see restoreOpennessState
     */
-    std::unique_ptr<XmlElement> getOpennessState() const;
+    XmlElement* getOpennessState() const;
 
     /** Restores a previously saved arrangement of open/closed sections.
 

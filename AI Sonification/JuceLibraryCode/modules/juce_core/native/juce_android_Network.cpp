@@ -214,62 +214,6 @@ DECLARE_JNI_CLASS (AndroidInputStream, "java/io/InputStream")
 #undef JNI_CLASS_MEMBERS
 
 //==============================================================================
-#define JNI_CLASS_MEMBERS(METHOD, STATICMETHOD, FIELD, STATICFIELD, CALLBACK) \
-  METHOD (acquire, "acquire", "()V") \
-  METHOD (release, "release", "()V") \
-
-DECLARE_JNI_CLASS (AndroidMulticastLock, "android/net/wifi/WifiManager$MulticastLock")
-#undef JNI_CLASS_MEMBERS
-
-#define JNI_CLASS_MEMBERS(METHOD, STATICMETHOD, FIELD, STATICFIELD, CALLBACK) \
-  METHOD (createMulticastLock, "createMulticastLock", "(Ljava/lang/String;)Landroid/net/wifi/WifiManager$MulticastLock;") \
-
-DECLARE_JNI_CLASS (AndroidWifiManager, "android/net/wifi/WifiManager")
-#undef JNI_CLASS_MEMBERS
-
-static LocalRef<jobject> getMulticastLock()
-{
-    static LocalRef<jobject> multicastLock;
-    static bool hasChecked = false;
-
-    if (! hasChecked)
-    {
-        hasChecked = true;
-
-        auto* env = getEnv();
-
-        LocalRef<jobject> wifiManager (env->CallObjectMethod (getAppContext().get(),
-                                                              AndroidContext.getSystemService,
-                                                              javaString ("wifi").get()));
-
-        if (wifiManager != nullptr)
-        {
-            multicastLock = LocalRef<jobject> (env->CallObjectMethod (wifiManager.get(),
-                                                                      AndroidWifiManager.createMulticastLock,
-                                                                      javaString ("JUCE_MulticastLock").get()));
-        }
-    }
-
-    return multicastLock;
-}
-
-JUCE_API void JUCE_CALLTYPE acquireMulticastLock()
-{
-    auto multicastLock = getMulticastLock();
-
-    if (multicastLock != nullptr)
-        getEnv()->CallVoidMethod (multicastLock.get(), AndroidMulticastLock.acquire);
-}
-
-JUCE_API void JUCE_CALLTYPE releaseMulticastLock()
-{
-    auto multicastLock = getMulticastLock();
-
-    if (multicastLock != nullptr)
-        getEnv()->CallVoidMethod (multicastLock.get(), AndroidMulticastLock.release);
-}
-
-//==============================================================================
 void MACAddress::findAllAddresses (Array<MACAddress>& /*result*/)
 {
     // TODO
@@ -353,7 +297,7 @@ public:
 
         const ScopedLock lock (createStreamLock);
 
-        if (stream != nullptr)
+        if (stream != 0)
         {
             stream.callVoidMethod (HTTPStream.release);
             stream.clear();
@@ -389,7 +333,7 @@ public:
             if (isPost)
                 WebInputStream::createHeadersAndPostData (url, headers, postData);
 
-            jbyteArray postDataArray = nullptr;
+            jbyteArray postDataArray = 0;
 
             if (postData.getSize() > 0)
             {
@@ -404,7 +348,7 @@ public:
             jassert (Thread::getCurrentThread() != nullptr);
 
             jintArray statusCodeArray = env->NewIntArray (1);
-            jassert (statusCodeArray != nullptr);
+            jassert (statusCodeArray != 0);
 
             {
                 const ScopedLock lock (createStreamLock);
@@ -423,18 +367,18 @@ public:
                                                                                         javaString (httpRequest).get())));
             }
 
-            if (stream != nullptr && ! stream.callBooleanMethod (HTTPStream.connect))
+            if (stream != 0 && ! stream.callBooleanMethod (HTTPStream.connect))
                 stream.clear();
 
-            jint* const statusCodeElements = env->GetIntArrayElements (statusCodeArray, nullptr);
+            jint* const statusCodeElements = env->GetIntArrayElements (statusCodeArray, 0);
             statusCode = statusCodeElements[0];
             env->ReleaseIntArrayElements (statusCodeArray, statusCodeElements, 0);
             env->DeleteLocalRef (statusCodeArray);
 
-            if (postDataArray != nullptr)
+            if (postDataArray != 0)
                 env->DeleteLocalRef (postDataArray);
 
-            if (stream != nullptr)
+            if (stream != 0)
             {
                 StringArray headerLines;
 
@@ -603,12 +547,12 @@ static Array<InterfaceInfo> findIPAddresses (int dummySocket)
         if (item.ifr_addr.sa_family == AF_INET)
         {
             InterfaceInfo info;
-            info.interfaceAddress = makeAddress (reinterpret_cast<const sockaddr_in*> (&item.ifr_addr));
+            info.interfaceAddress = makeAddress ((const sockaddr_in*) &item.ifr_addr);
 
             if (! info.interfaceAddress.isNull())
             {
                 if (ioctl (dummySocket, SIOCGIFBRDADDR, &item) == 0)
-                    info.broadcastAddress = makeAddress (reinterpret_cast<const sockaddr_in*> (&item.ifr_broadaddr));
+                    info.broadcastAddress = makeAddress ((const sockaddr_in*) &item.ifr_broadaddr);
 
                 result.add (info);
             }

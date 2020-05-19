@@ -40,29 +40,20 @@ public:
 
     bool initialise()
     {
-        if (! frameBuffer.initialise (context, width, height))
-            return false;
-
-        frameBuffer.clear (Colours::transparentBlack);
-        return true;
+        return frameBuffer.initialise (context, width, height);
     }
 
-    std::unique_ptr<LowLevelGraphicsContext> createLowLevelContext() override
+    LowLevelGraphicsContext* createLowLevelContext() override
     {
         sendDataChangeMessage();
         return createOpenGLGraphicsContext (context, frameBuffer);
     }
 
-    std::unique_ptr<ImageType> createType() const override     { return std::make_unique<OpenGLImageType>(); }
+    ImageType* createType() const override     { return new OpenGLImageType(); }
 
     ImagePixelData::Ptr clone() override
     {
-        std::unique_ptr<OpenGLFrameBufferImage> im (new OpenGLFrameBufferImage (context, width, height));
-
-        if (! im->initialise())
-            return ImagePixelData::Ptr();
-
-        Image newImage (im.release());
+        Image newImage (*new OpenGLFrameBufferImage (context, width, height));
         Graphics g (newImage);
         g.drawImageAt (Image (*this), 0, 0, false);
 
@@ -113,7 +104,7 @@ private:
         static void verticalRowFlip (PixelARGB* const data, const int w, const int h)
         {
             HeapBlock<PixelARGB> tempRow (w);
-            auto rowSize = (size_t) w * sizeof (PixelARGB);
+            auto rowSize = sizeof (PixelARGB) * (size_t) w;
 
             for (int y = 0; y < h / 2; ++y)
             {
@@ -135,7 +126,7 @@ private:
         void write (const PixelARGB* const data) const noexcept
         {
             HeapBlock<PixelARGB> invertedCopy (area.getWidth() * area.getHeight());
-            auto rowSize = (size_t) area.getWidth() * sizeof (PixelARGB);
+            auto rowSize = sizeof (PixelARGB) * (size_t) area.getWidth();
 
             for (int y = 0; y < area.getHeight(); ++y)
                 memcpy (invertedCopy + area.getWidth() * y,
@@ -201,6 +192,7 @@ ImagePixelData::Ptr OpenGLImageType::create (Image::PixelFormat, int width, int 
     if (! im->initialise())
         return ImagePixelData::Ptr();
 
+    im->frameBuffer.clear (Colours::transparentBlack);
     return *im.release();
 }
 

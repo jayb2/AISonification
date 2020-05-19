@@ -424,7 +424,7 @@ private:
         else
         {
             for (int i = 0; i < numOutputChannels; ++i)
-                zeromem (outputChannelData[i], (size_t) (numFrames) * sizeof (float));
+                zeromem (outputChannelData[i], sizeof (float) * static_cast<size_t> (numFrames));
         }
     }
 
@@ -1434,7 +1434,7 @@ public:
     }
 
 private:
-    //==============================================================================
+    //=============================================================================
     void* (*threadEntryProc) (void*) = nullptr;
     void* threadUserPtr = nullptr;
 
