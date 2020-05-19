@@ -18,14 +18,26 @@ Game::Game() :m_shape(0, 0, 0, 0, Colours::white), m_frog(105, 810, 60, 60, Colo
     addKeyListener(this);
     setWantsKeyboardFocus(true);
 
+    m_midiOutput = std::make_shared<ComboBox>("MIDI Selector");
+    StringArray devices = MidiOutput::getDevices();
+    m_midiOutput->addItemList(devices, 1);
+    m_midiOutput->onChange = [this]() {
+        String deviceName = m_midiOutput->getText();
+        DBG(deviceName);
+        m_output.openDevice(deviceName);
+    };
+    
     m_logs.push_back(Log(105, 0, 60, 200, Colours::sandybrown));
     m_logs.push_back(Log(15, -500, 60, 200, Colours::sandybrown));
     
-    //m_fish.push_back(Log(15, -500, 60, 200, Colours::sandybrown));
     m_fish.push_back(Fish(645, 0, 60, 100, Colours::midnightblue));
 }
 
 Game::~Game() {
+
+}
+
+MidiOutput Game::m_output() {
 
 }
 
@@ -48,7 +60,9 @@ void Game::update() {
     for (int n = 0; n < m_logs.size(); ++n) {
         if (m_frog.getShape().intersects(m_logs[n].getShape())) {
             m_frog.alive = false;
+            setNote(55);
             DBG("dead");
+
         }
     }
     //every second
@@ -64,6 +78,15 @@ void Game::update() {
 
 void Game::tick() {
 
+}
+
+void Game::setNote(int m_note) {
+    
+    //Turns note on
+    auto message = MidiMessage::noteOn(10, m_note, 1.0f);
+
+    //Turns note off
+    auto message = MidiMessage::noteOff(10, m_note, 1.0f);
 }
 
 void Game::mouseDown(const MouseEvent& event) {

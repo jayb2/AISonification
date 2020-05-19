@@ -3,6 +3,8 @@
 <JUCERPROJECT id="AqRS50" name="AI Sonification" projectType="guiapp" jucerVersion="5.4.7">
   <MAINGROUP id="cQF0Z1" name="AI Sonification">
     <GROUP id="{1480AAAD-9696-D7BD-343D-3B2615C27598}" name="Source">
+      <FILE id="GWgOIk" name="Fish.cpp" compile="1" resource="0" file="Source/Fish.cpp"/>
+      <FILE id="IiIUDv" name="Fish.h" compile="0" resource="0" file="Source/Fish.h"/>
       <FILE id="q48vaq" name="Game.cpp" compile="1" resource="0" file="Source/Game.cpp"/>
       <FILE id="tpJRQx" name="Game.h" compile="0" resource="0" file="Source/Game.h"/>
       <FILE id="IWhnLz" name="Log.cpp" compile="1" resource="0" file="Source/Log.cpp"/>

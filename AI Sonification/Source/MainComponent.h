@@ -37,6 +37,7 @@ private:
     // Your private member variables go here...
 
     Game m_game;
+    MidiOutput m_output;
 
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)
