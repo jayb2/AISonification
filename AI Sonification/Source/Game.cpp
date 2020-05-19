@@ -22,9 +22,10 @@ Game::Game() : m_frog(105, 810, 60, 60, Colours::hotpink) {
     m_midiOutput->addItemList(devices, 1);
     m_midiOutput->onChange = [this]() {
         String deviceName = m_midiOutput->getText();
+        int DeviceID = (m_midiOutput->getSelectedId() -1);
         DBG(deviceName);
 
-        m_midiManager.setOutput(deviceName);
+        m_midiManager.setOutput(DeviceID);
 
 
     };
