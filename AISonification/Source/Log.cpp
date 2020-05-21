@@ -15,8 +15,9 @@ Log::Log(int x, int y, int w, int h, Colour col) :
 	Shape{ x, y, w, h, col }
 {
 
-	//loadImage(ImageCache::getFromMemory(BinaryData::standing_PNG, BinaryData::standing_PNGSize));
-	//loadImage(ImageCache::getFromMemory(BinaryData::jumping_PNG, BinaryData::jumping_PNGSize));
+	loadImage(ImageCache::getFromMemory(BinaryData::Log_1_png, BinaryData::Log_1_pngSize));
+	loadImage(ImageCache::getFromMemory(BinaryData::Log_2_png, BinaryData::Log_2_pngSize));
+	loadImage(ImageCache::getFromMemory(BinaryData::Log_3_png, BinaryData::Log_3_pngSize));
 
 	setImageIndex(0);
 
@@ -46,13 +47,16 @@ void Log::update() {
 
 	static int frameCount = 0;
 
-	int val = frameCount % 10;
+	int val = frameCount % 60;
 
-	if (val < 5) {
+	if (val < 20) {
 		setImageIndex(0);
 	}
-	else {
+	else if (val < 40) {
 		setImageIndex(1);
+	}
+	else {
+		setImageIndex(2);
 	}
 
 	++frameCount;

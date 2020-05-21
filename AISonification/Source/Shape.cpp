@@ -82,7 +82,7 @@ void Shape::tick(int verticalVelocity) {
         if (alive) {
             m_score++;
             score = m_score;
-            DBG(score);
+            //DBG(score);
         }
     }
     update();

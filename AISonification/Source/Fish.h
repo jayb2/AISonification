@@ -9,9 +9,9 @@
 */
 
 #pragma once
-#include "Log.h"
+#include "Shape.h"
 
-class Fish : public Log {
+class Fish : public Shape {
 
     bool m_isActive = true;
 

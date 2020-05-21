@@ -32,10 +32,13 @@ Game::Game() : m_frog(105, 810, 60, 60, Colours::hotpink) {
 
     addAndMakeVisible(m_midiOutput.get());
 
-    m_logs.push_back(Log(105, 0, 60, 200, Colours::sandybrown));
-    m_logs.push_back(Log(15, -500, 60, 200, Colours::sandybrown));
+    m_logs.push_back(Log(105, 0, 60, 200, Colours::darkcyan));
+    m_logs.push_back(Log(15, -500, 60, 200, Colours::darkcyan));
 
-    m_fish.push_back(Fish(645, 0, 60, 100, Colours::midnightblue));
+    m_fish.push_back(Fish(645, 0, 60, 100, Colours::darkcyan));
+    m_fish.push_back(Fish(285, -314, 60, 100, Colours::darkcyan));
+    m_fish.push_back(Fish(465, -627, 60, 100, Colours::darkcyan));
+    m_fish.push_back(Fish(15, -940, 60, 100, Colours::darkcyan));
 }
 
 Game::~Game() {
@@ -45,16 +48,17 @@ Game::~Game() {
 
 void Game::update() {
 
-    repaint();
-    m_frog.stamTick();
-    for (int n = 0; n < m_logs.size(); ++n) {
-        m_logs[n].tick(5);
-    }
+   repaint();
+   m_frog.stamTick();
+   if (m_frog.alive) {
+       for (int n = 0; n < m_logs.size(); ++n) {
+           m_logs[n].tick(5);
+       }
 
-    for (int n = 0; n < m_fish.size(); ++n) {
-        m_fish[n].tick(4);
-    }
-
+       for (int n = 0; n < m_fish.size(); ++n) {
+           m_fish[n].tick(4);
+       }
+   }
     static int logFrame = 0;
     ++logFrame;
     m_logFrame = (logFrame / 1000);
@@ -65,10 +69,8 @@ void Game::update() {
             //m_midiManager.triggerNote(1, 55, 100, 4);
 
             m_midiManager.setChord(-3);
-
-            setNote(55);
             DBG("dead");
-
+            
         }
     }
     //every second
@@ -92,7 +94,7 @@ void Game::tick() {
 void Game::setNote(int m_note) {
 
     //Turns note on
-    auto message = MidiMessage::noteOn(10, m_note, 1.0f);
+    //auto message = MidiMessage::noteOn(10, m_note, 1.0f);
 
     //Turns note off
  //   auto message = MidiMessage::noteOff(10, m_note, 1.0f);
@@ -142,6 +144,13 @@ void Game::paint(Graphics& g)
         m_fish[n].draw(g);
     }
 
+    //Draws the logs
+    for (int n = 0; n < m_logs.size(); ++n) {
+        if (m_logs[n].isActive()) {
+            m_logs[n].draw(g);
+        }
+    }
+
     //Makes the lily pads in which frog can jump on
     g.setColour(Colours::darkgreen);
     for (int n = 0; n < 8; ++n)
@@ -152,12 +161,7 @@ void Game::paint(Graphics& g)
     //Draws the frog providing it's alive
     m_frog.draw(g);
 
-    //Draws the logs
-    for (int n = 0; n < m_logs.size(); ++n) {
-        if (m_logs[n].isActive()) {
-            m_logs[n].draw(g);
-        }
-    }
+
 
 }
 
