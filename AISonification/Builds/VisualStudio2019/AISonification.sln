@@ -1,0 +1,20 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2019
+
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AISonification - App", "AISonification_App.vcxproj", "{8F04248F-E91E-7D8A-FE81-2C5EE67FE2FE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8F04248F-E91E-7D8A-FE81-2C5EE67FE2FE}.Debug|x64.ActiveCfg = Debug|x64
+		{8F04248F-E91E-7D8A-FE81-2C5EE67FE2FE}.Debug|x64.Build.0 = Debug|x64
+		{8F04248F-E91E-7D8A-FE81-2C5EE67FE2FE}.Release|x64.ActiveCfg = Release|x64
+		{8F04248F-E91E-7D8A-FE81-2C5EE67FE2FE}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
