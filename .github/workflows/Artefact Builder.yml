@@ -34,16 +34,16 @@ jobs:
 
     # Runs a set of commands using the runners shell
     - name: Xcode Build
-      run: xcodebuild -project AI Sonification/Builds/MacOSX/AI Sonfication.xcodeproj
+      run: xcodebuild -project AI_Sonification/Builds/MacOSX/AI_Sonfication.xcodeproj
     
     - name: Print Build output
-      run: ls -R AI Sonfication/Builds  
+      run: ls -R AI_Sonfication/Builds  
     
     
     - name: Copy app
       run: |
         mkdir Mac,
-        cp -rf AI Sonfication/Builds/MacOSX/build/Debug/ Mac
+        cp -rf AI_Sonfication/Builds/MacOSX/build/Debug/Mac
     
     - name: Check folders
       run: ls
@@ -61,7 +61,7 @@ jobs:
       uses: actions/upload-artifact@v1.0.0
       with:
         # Artifact name
-        name: AI Sonfication-Mac
+        name: AI_Sonfication-Mac
         # Directory containing files to upload
         path: release.zip
         
