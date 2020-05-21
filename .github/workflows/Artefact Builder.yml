@@ -34,16 +34,16 @@ jobs:
 
     # Runs a set of commands using the runners shell
     - name: Xcode Build
-      run: xcodebuild -project TestProject/Builds/MacOSX/TestProject.xcodeproj
+      run: xcodebuild -project AI Sonification/Builds/MacOSX/AI Sonification.xcodeproj
     
     - name: Print Build output
-      run: ls -R TestProject/Builds  
+      run: ls -R AI Sonification/Builds  
     
     
     - name: Copy app
       run: |
         mkdir Mac,
-        cp -rf TestProject/Builds/MacOSX/build/Debug/ Mac
+        cp -rf AI Sonification/Builds/MacOSX/build/Debug/Mac
     
     - name: Check folders
       run: ls
@@ -61,7 +61,7 @@ jobs:
       uses: actions/upload-artifact@v1.0.0
       with:
         # Artifact name
-        name: TestProject-Mac
+        name: AI Sonification-Mac
         # Directory containing files to upload
         path: release.zip
         
@@ -82,19 +82,19 @@ jobs:
       uses: microsoft/setup-msbuild@v1.0.0
       
     - name: VStudio Build
-      run: msbuild TestProject/Builds/VisualStudio2019/TestProject.sln
+      run: msbuild AI Sonification/Builds/VisualStudio2019/AI Sonification.sln
     
     - name: Make App Folder
-      run:  mkdir TestProjectBuild
+      run:  mkdir AI SonificationBuild
     
     - name: Copy build files
-      run: cp -r TestProject/Builds/VisualStudio2019/x64/Debug/App/ TestProjectBuild  
+      run: cp -r AI Sonification/Builds/VisualStudio2019/x64/Debug/App/AI SonificationBuild  
     
     - name: Check copy
-      run: ls TestProjectBuild/
+      run: ls AI SonificationBuild/
       
     - name: zip 
-      run: 7z a  TestProjectWindows TestProjectBuild
+      run: 7z a  AI SonificationWindows AI SonificationBuild
     - name: Print Contents
       run: ls
       
@@ -102,6 +102,6 @@ jobs:
       uses: actions/upload-artifact@v1.0.0
       with:
         # Artifact name
-        name: TestProject-Windows
+        name: AI Sonification-Windows
         # Directory containing files to upload
-        path: TestProjectWindows.7z
+        path: AI SonificationWindows.7z
