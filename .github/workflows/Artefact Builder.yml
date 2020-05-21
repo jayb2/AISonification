@@ -85,7 +85,7 @@ jobs:
       run: msbuild AISonification/Builds/VisualStudio2019/AISonification.sln
     
     - name: Make App Folder
-      run:  mkdir AI SonificationBuild
+      run:  mkdir AISonificationBuild
     
     - name: Copy build files
       run: cp -r AISonification/Builds/VisualStudio2019/x64/Debug/App/AISonificationBuild  
