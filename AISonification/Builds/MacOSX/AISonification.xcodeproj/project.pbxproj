@@ -53,6 +53,10 @@
 			isa = PBXBuildFile;
 			fileRef = 602EE230071484758FBDB5AA;
 		};
+		6D7BF5D141C368BE59946E62 = {
+			isa = PBXBuildFile;
+			fileRef = E1FCBA45A8324BD30ED40803;
+		};
 		B8026179BE85939FE144F71D = {
 			isa = PBXBuildFile;
 			fileRef = C94C8386B3501B1D23C7D29C;
@@ -219,6 +223,13 @@
 			lastKnownFileType = file;
 			name = "juce_audio_basics";
 			path = "../../JuceLibraryCode/modules/juce_audio_basics";
+			sourceTree = "SOURCE_ROOT";
+		};
+		2253B6BC51452477D306FC41 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			name = StartScreen.h;
+			path = ../../Source/StartScreen.h;
 			sourceTree = "SOURCE_ROOT";
 		};
 		25CF639C7B9A83A46C76E668 = {
@@ -536,6 +547,13 @@
 			path = ../../Source/Fish.h;
 			sourceTree = "SOURCE_ROOT";
 		};
+		E1FCBA45A8324BD30ED40803 = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = StartScreen.cpp;
+			path = ../../Source/StartScreen.cpp;
+			sourceTree = "SOURCE_ROOT";
+		};
 		F1C9FC98BBFF2D99733C9025 = {
 			isa = PBXFileReference;
 			lastKnownFileType = text.plist.xml;
@@ -587,6 +605,8 @@
 		EED1450363CE8E72BD2F0BBE = {
 			isa = PBXGroup;
 			children = (
+				E1FCBA45A8324BD30ED40803,
+				2253B6BC51452477D306FC41,
 				076640855FF98B09DC55DA2C,
 				C94C8386B3501B1D23C7D29C,
 				ABCC399076F28F5A480B7847,
@@ -920,6 +940,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D7BF5D141C368BE59946E62,
 				B8026179BE85939FE144F71D,
 				786F31446F7F606CCC251BEB,
 				8756A2DE44C69A70C635DDF5,

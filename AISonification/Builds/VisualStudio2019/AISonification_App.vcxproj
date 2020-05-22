@@ -138,6 +138,7 @@
     <Lib/>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\StartScreen.cpp"/>
     <ClCompile Include="..\..\Source\MidiManager.cpp"/>
     <ClCompile Include="..\..\Source\Fish.cpp"/>
     <ClCompile Include="..\..\Source\Game.cpp"/>
@@ -1865,6 +1866,7 @@
     <ClCompile Include="..\..\JuceLibraryCode\include_juce_opengl.cpp"/>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\StartScreen.h"/>
     <ClInclude Include="..\..\Source\MidiManager.h"/>
     <ClInclude Include="..\..\Source\Fish.h"/>
     <ClInclude Include="..\..\Source\Game.h"/>

@@ -29,7 +29,7 @@ private:
     FishVector m_fish;
     int m_numOfLogs, m_logFrame;
 
-    std::shared_ptr<ComboBox> m_midiOutput;
+
 
     MidiManager m_midiManager;
 public:
@@ -47,7 +47,7 @@ public:
     bool keyPressed(const KeyPress& key, Component* originatingComponent);
 
     void paint(Graphics&) override;
-    void resized() override;
+
 
 
 };

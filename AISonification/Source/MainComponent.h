@@ -10,6 +10,7 @@
 
 #include <JuceHeader.h>
 #include "Game.h"
+#include "StartScreen.h"
 
 
 //==============================================================================
@@ -37,6 +38,8 @@ private:
     // Your private member variables go here...
 
     Game m_game;
+    Start m_start;
+    std::shared_ptr<ComboBox> m_midiOutput;
 
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MainComponent)

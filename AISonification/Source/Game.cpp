@@ -17,20 +17,6 @@ Game::Game() : m_frog(105, 810, 60, 60, Colours::hotpink) {
     addKeyListener(this);
     setWantsKeyboardFocus(true);
 
-    m_midiOutput = std::make_shared<ComboBox>("MIDI Selector");
-    StringArray devices = MidiOutput::getDevices();
-    m_midiOutput->addItemList(devices, 1);
-    m_midiOutput->onChange = [this]() {
-        String deviceName = m_midiOutput->getText();
-        int DeviceID = (m_midiOutput->getSelectedId() -1);
-        DBG(deviceName);
-
-        m_midiManager.setOutput(DeviceID);
-
-
-    };
-
-    addAndMakeVisible(m_midiOutput.get());
 
     m_logs.push_back(Log(105, 0, 60, 200, Colours::darkcyan));
     m_logs.push_back(Log(15, -500, 60, 200, Colours::darkcyan));
@@ -165,15 +151,6 @@ void Game::paint(Graphics& g)
 
 }
 
-void Game::resized() {
 
-    auto size = getLocalBounds();
-    auto footer = size.removeFromBottom(20);
-
-    m_midiOutput->setBounds(footer.removeFromLeft(100));
-
-
-    // m_shape.setBounds(size);
-}
 
 

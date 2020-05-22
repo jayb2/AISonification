@@ -3,6 +3,8 @@
 <JUCERPROJECT id="AqRS50" name="AISonification" projectType="guiapp" jucerVersion="5.4.7">
   <MAINGROUP id="cQF0Z1" name="AISonification">
     <GROUP id="{1480AAAD-9696-D7BD-343D-3B2615C27598}" name="Source">
+      <FILE id="aRH2Tj" name="StartScreen.cpp" compile="1" resource="0" file="Source/StartScreen.cpp"/>
+      <FILE id="BLfdG3" name="StartScreen.h" compile="0" resource="0" file="Source/StartScreen.h"/>
       <GROUP id="{C7BA86D2-AB09-1101-133D-5A8BEFE3C659}" name="Images">
         <FILE id="eSC06o" name="Log_3.png" compile="0" resource="1" file="Source/Log_3.png"/>
         <FILE id="QpugQR" name="Log_2.png" compile="0" resource="1" file="Source/Log_2.png"/>
