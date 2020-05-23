@@ -26,23 +26,36 @@ Start::Start() {
 
 
     };
-
     addAndMakeVisible(m_midiOutput.get());
+
+
+    addAndMakeVisible(playGame);
+    playGame.setButtonText("Play the game!");
+    playGame.onClick = [this] { playPressed(); };
+
 }
 
 Start::~Start() {
-
+    
 }
 
 void Start::drawScreen(Graphics& g) {
     g.fillAll(Colours::pink);
+
+}
+
+void Start::playPressed()
+{
+    isButtonPressed = true;
+    repaint();
 }
 
 void Start::resized() {
 
     auto size = getLocalBounds();
     auto footer = size.removeFromBottom(20);
-
     m_midiOutput->setBounds(footer.removeFromLeft(100));
+
+    playGame.setBounds(10, 10, getWidth() - 20, 40);
 
 }

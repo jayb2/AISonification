@@ -18,6 +18,7 @@ MainComponent::MainComponent()
     addAndMakeVisible(m_start);
     if (m_start.isButtonPressed) {
         addAndMakeVisible(m_game);
+        DBG("Draw game");
     }
 
     setSize(720, 940);

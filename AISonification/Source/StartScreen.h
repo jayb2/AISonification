@@ -21,10 +21,13 @@ private:
 public:
     bool isButtonPressed;
 
+    TextButton playGame;
+
     Start();
     ~Start();
 
     void drawScreen(Graphics&);
+    void playPressed();
     void resized() override;
 
 };
