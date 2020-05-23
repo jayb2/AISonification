@@ -29,9 +29,13 @@ private:
     FishVector m_fish;
     int m_numOfLogs, m_logFrame;
 
-
-
+    std::shared_ptr<ComboBox> m_midiOutput;
     MidiManager m_midiManager;
+
+    TextButton m_playGame;
+    bool m_isButtonPressed;
+    Font m_font;
+
 public:
 
     Game();
@@ -42,11 +46,13 @@ public:
     void tick();
 
     void setNote(int m_note);
+    void playPressed();
 
     void mouseDown(const MouseEvent& event);
     bool keyPressed(const KeyPress& key, Component* originatingComponent);
 
     void paint(Graphics&) override;
+    void resized() override;
 
 
 

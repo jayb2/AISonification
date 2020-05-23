@@ -17,6 +17,27 @@ Game::Game() : m_frog(105, 810, 60, 60, Colours::hotpink) {
     addKeyListener(this);
     setWantsKeyboardFocus(true);
 
+    m_midiOutput = std::make_shared<ComboBox>("MIDI Selector");
+    StringArray devices = MidiOutput::getDevices();
+    m_midiOutput->addItemList(devices, 1);
+    m_midiOutput->onChange = [this]() {
+        String deviceName = m_midiOutput->getText();
+        int DeviceID = (m_midiOutput->getSelectedId() - 1);
+        DBG(deviceName);
+
+        m_midiManager.setOutput(DeviceID);
+
+
+    };
+    addAndMakeVisible(m_midiOutput.get());
+
+    m_isButtonPressed = false;
+    addAndMakeVisible(m_playGame);
+    m_playGame.setButtonText("Play the game!");
+    m_playGame.onClick = [this] { playPressed(); };
+
+    m_font.setSizeAndStyle(32, 1, 1, 0);
+
 
     m_logs.push_back(Log(105, 0, 60, 200, Colours::darkcyan));
     m_logs.push_back(Log(15, -500, 60, 200, Colours::darkcyan));
@@ -34,40 +55,41 @@ Game::~Game() {
 
 void Game::update() {
 
-   repaint();
-   m_frog.stamTick();
-   if (m_frog.alive) {
-       for (int n = 0; n < m_logs.size(); ++n) {
-           m_logs[n].tick(5);
-       }
+    if (m_isButtonPressed) {
+        m_frog.stamTick();
+        if (m_frog.alive) {
+            for (int n = 0; n < m_logs.size(); ++n) {
+                m_logs[n].tick(5);
+            }
 
-       for (int n = 0; n < m_fish.size(); ++n) {
-           m_fish[n].tick(4);
-       }
-   }
-    static int logFrame = 0;
-    ++logFrame;
-    m_logFrame = (logFrame / 1000);
-
-    for (int n = 0; n < m_logs.size(); ++n) {
-        if (m_frog.getShape().intersects(m_logs[n].getShape()) && m_frog.alive == true) {
-            m_frog.alive = false;
-            //m_midiManager.triggerNote(1, 55, 100, 4);
-
-            m_midiManager.setChord(-3);
-            DBG("dead");
-            
+            for (int n = 0; n < m_fish.size(); ++n) {
+                m_fish[n].tick(4);
+            }
         }
-    }
-    //every second
-
-
-    if (logFrame % 60 == 0) {
+        static int logFrame = 0;
+        ++logFrame;
+        m_logFrame = (logFrame / 1000);
 
         for (int n = 0; n < m_logs.size(); ++n) {
-            if (m_logs[n].isActive() == false) {
-                m_logs[n].activate();
-                break;
+            if (m_frog.getShape().intersects(m_logs[n].getShape()) && m_frog.alive == true) {
+                m_frog.alive = false;
+                //m_midiManager.triggerNote(1, 55, 100, 4);
+
+                m_midiManager.setChord(-3);
+                DBG("dead");
+
+            }
+        }
+        //every second
+
+
+        if (logFrame % 60 == 0) {
+
+            for (int n = 0; n < m_logs.size(); ++n) {
+                if (m_logs[n].isActive() == false) {
+                    m_logs[n].activate();
+                    break;
+                }
             }
         }
     }
@@ -84,6 +106,13 @@ void Game::setNote(int m_note) {
 
     //Turns note off
  //   auto message = MidiMessage::noteOff(10, m_note, 1.0f);
+}
+
+void Game::playPressed()
+{
+    m_isButtonPressed = true;
+    setEnabled(false);
+    repaint();
 }
 
 void Game::mouseDown(const MouseEvent& event) {
@@ -116,6 +145,8 @@ bool Game::keyPressed(const KeyPress& key, Component* originatingComponent) {
 
 void Game::paint(Graphics& g)
 {
+
+
     g.fillAll(Colours::darkcyan);
 
     //Makes the grid lines for rough guidance on what the lanes are
@@ -147,10 +178,28 @@ void Game::paint(Graphics& g)
     //Draws the frog providing it's alive
     m_frog.draw(g);
 
+    if (!m_isButtonPressed) {
+        g.fillAll(Colours::darkcyan);
+        g.setColour(Colours::whitesmoke);
+        g.drawRect(70, 340, 570, 260, 5);
+        g.setColour(Colours::black);
+        g.setFont(m_font);
+        g.drawMultiLineText
+        ("Avoid the incoming logs! Use the A and D keys to make your frog jump, Q and E will allow you to jump two but you'll need to let it recharge after using. Select your desired MIDI output using the drop box at the bottom", 
+            110, 380, 500, 1);
+    }
 
 
 }
 
+void Game::resized() {
+    auto size = getLocalBounds();
+    auto footer = size.removeFromBottom(20);
+    m_midiOutput->setBounds(footer.removeFromLeft(100));
 
+    if (!m_isButtonPressed) {
+        m_playGame.setBounds(10, 10, getWidth() - 20, 40);
+    }
+}
 
 

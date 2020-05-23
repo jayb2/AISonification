@@ -15,11 +15,8 @@ MainComponent::MainComponent()
     // you add any child components.
 
     //Only makes game visable if buttonPressed is true, this stops framedrop from JUCE splashscreen effecting gameplay
-    addAndMakeVisible(m_start);
-    if (m_start.isButtonPressed) {
-        addAndMakeVisible(m_game);
-        DBG("Draw game");
-    }
+    addAndMakeVisible(m_game);
+
 
     setSize(720, 940);
     setFramesPerSecond(60); // This sets the frequency of the update calls.
@@ -36,9 +33,7 @@ void MainComponent::update()
     // in the constructor. You can use it to update counters, animate values, etc.
     
     //Only updates game if buttonPressed is true
-    if (m_start.isButtonPressed) {
-        m_game.update();
-    }
+    m_game.update();
 }
 
 //==============================================================================
@@ -48,9 +43,7 @@ void MainComponent::paint(Graphics& g)
     g.fillAll(getLookAndFeel().findColour(ResizableWindow::backgroundColourId));
     
     //Draws Start screen only whilst the buttonPressed returns false
-    if (!m_start.isButtonPressed) {
-        m_start.drawScreen(g);
-    }
+
     // You can add your drawing code here!
 }
 
@@ -61,6 +54,5 @@ void MainComponent::resized()
     // update their positions.
 
     m_game.setBounds(getLocalBounds());
-    m_start.setBounds(getLocalBounds());
 
 }

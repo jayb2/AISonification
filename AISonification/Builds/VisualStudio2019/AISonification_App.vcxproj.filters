@@ -403,9 +403,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Source\StartScreen.cpp">
-      <Filter>AISonification\Source</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Source\MidiManager.cpp">
       <Filter>AISonification\Source</Filter>
     </ClCompile>
@@ -2277,9 +2274,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Source\StartScreen.h">
-      <Filter>AISonification\Source</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\MidiManager.h">
       <Filter>AISonification\Source</Filter>
     </ClInclude>
