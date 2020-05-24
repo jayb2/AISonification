@@ -88,13 +88,13 @@ jobs:
       run:  mkdir AISonification/Build
     
     - name: Copy build files
-      run: cp -r AISonification/Builds/VisualStudio2019/x64/Debug/App/AISonification/Build
+      run: cp -r AISonification/Builds
     
     - name: Check copy
-      run: ls AISonification/Build
+      run: ls AISonification/Builds
       
     - name: zip 
-      run: 7z a  AISonificationWindows AISonification/Build
+      run: 7z a  AISonificationWindows AISonification/Builds
     - name: Print Contents
       run: ls
       
