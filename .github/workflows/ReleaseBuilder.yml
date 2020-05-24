@@ -31,16 +31,16 @@ jobs:
 
     # Runs a set of commands using the runners shell
     - name: Xcode Build
-      run: xcodebuild -project TestProject/Builds/MacOSX/TestProject.xcodeproj
+      run: xcodebuild -project AISonification/Builds/MacOSX/AISonification.xcodeproj
     
     - name: Print Build output
-      run: ls -R TestProject/Builds  
+      run: ls -R AISonification/Builds  
     
     
     - name: Copy app
       run: |
         mkdir Mac,
-        cp -rf TestProject/Builds/MacOSX/build/Debug/ Mac
+        cp -rf AISonification/Builds/MacOSX/build/Debug/ Mac
     
     - name: Check folders
       run: ls
@@ -58,7 +58,7 @@ jobs:
       uses: actions/upload-artifact@v1.0.0
       with:
         # Artifact name
-        name: TestProject
+        name: AISonification
         # Directory containing files to upload
         path: mac-release.zip
       
@@ -100,19 +100,19 @@ jobs:
       uses: microsoft/setup-msbuild@v1.0.0
       
     - name: VStudio Build
-      run: msbuild TestProject/Builds/VisualStudio2019/TestProject.sln
+      run: msbuild AISonification/Builds/VisualStudio2019/AISonification.sln
     
     - name: Make App Folder
       run:  mkdir TestProjectBuild
     
     - name: Copy build files
-      run: cp -r TestProject/Builds/VisualStudio2019/x64/Debug/App/ TestProjectBuild  
+      run: cp -r AISonification/Builds/VisualStudio2019/x64/Debug/App/ AISonificationBuild  
     
     - name: Check copy
-      run: ls TestProjectBuild/
+      run: ls AISonificationBuild/
       
     - name: zip 
-      run: 7z a  win-release TestProjectBuild
+      run: 7z a  win-release AISonificationBuild
       
     - name: Print Contents
       run: ls
@@ -121,7 +121,7 @@ jobs:
       uses: actions/upload-artifact@v1.0.0
       with:
         # Artifact name
-        name: TestProject-Windows
+        name: AISonification-Windows
         # Directory containing files to upload
         path: win-release.7z  
     - name: Create Release
