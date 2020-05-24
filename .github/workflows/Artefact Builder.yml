@@ -43,7 +43,7 @@ jobs:
     - name: Copy app
       run: |
         mkdir Mac,
-        cp -rf AISonification/Builds/MacOSX/build/Debug/Mac
+        cp -rf AISonification/Builds
     
     - name: Check folders
       run: ls
