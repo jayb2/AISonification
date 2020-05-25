@@ -8,6 +8,33 @@
 
 namespace BinaryData
 {
+    extern const char*   Fish_L_png;
+    const int            Fish_L_pngSize = 381;
+
+    extern const char*   Fish_1_png;
+    const int            Fish_1_pngSize = 372;
+
+    extern const char*   Fish_R_png;
+    const int            Fish_R_pngSize = 369;
+
+    extern const char*   Frog6_png_png;
+    const int            Frog6_png_pngSize = 252;
+
+    extern const char*   Frog5_png_png;
+    const int            Frog5_png_pngSize = 237;
+
+    extern const char*   Frog4_png_png;
+    const int            Frog4_png_pngSize = 336;
+
+    extern const char*   Frog2_png_png;
+    const int            Frog2_png_pngSize = 237;
+
+    extern const char*   Frog1_png_png;
+    const int            Frog1_png_pngSize = 264;
+
+    extern const char*   Frog3_png_png;
+    const int            Frog3_png_pngSize = 252;
+
     extern const char*   Log_3_png;
     const int            Log_3_pngSize = 270;
 
@@ -17,17 +44,8 @@ namespace BinaryData
     extern const char*   Log_1_png;
     const int            Log_1_pngSize = 270;
 
-    extern const char*   Fish_1_png;
-    const int            Fish_1_pngSize = 342;
-
-    extern const char*   Fish_R_png;
-    const int            Fish_R_pngSize = 342;
-
-    extern const char*   Fish_L_png;
-    const int            Fish_L_pngSize = 342;
-
     // Number of elements in the namedResourceList and originalFileNames arrays.
-    const int namedResourceListSize = 6;
+    const int namedResourceListSize = 12;
 
     // Points to the start of a list of resource names.
     extern const char* namedResourceList[];

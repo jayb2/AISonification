@@ -14,7 +14,6 @@
 
 class MidiManager : public Timer {
 
-	//std::unique_ptr<MidiOutput> m_output;
 	std::unique_ptr<MidiOutput> m_output;
 
 	struct MidiInfo {
@@ -38,9 +37,7 @@ public:
 
 	void timerCallback()override;
 
-
 	void setOutput(int outputName);
-
 
 	void triggerNote(int channel, int pitch, int velocity, int numberBeats);
 

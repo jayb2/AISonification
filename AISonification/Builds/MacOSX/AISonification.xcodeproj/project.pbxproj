@@ -179,13 +179,6 @@
 			path = "../../Source/Log_2.png";
 			sourceTree = "SOURCE_ROOT";
 		};
-		12D11CDD85E75CBFA0D5E3E5 = {
-			isa = PBXFileReference;
-			lastKnownFileType = image.png;
-			name = "Fish_L.png";
-			path = "../../Source/Fish_L.png";
-			sourceTree = "SOURCE_ROOT";
-		};
 		1323F0CB2A750E1C8FE73AF2 = {
 			isa = PBXFileReference;
 			lastKnownFileType = wrapper.framework;
@@ -228,13 +221,6 @@
 			path = ../../Source/Frog.cpp;
 			sourceTree = "SOURCE_ROOT";
 		};
-		26F41C8F4E7CDB634035B259 = {
-			isa = PBXFileReference;
-			lastKnownFileType = image.png;
-			name = "Fish_1.png";
-			path = "../../Source/Fish_1.png";
-			sourceTree = "SOURCE_ROOT";
-		};
 		2CDC1DAB056BF8544279AE1B = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.objcpp;
@@ -254,6 +240,13 @@
 			lastKnownFileType = sourcecode.c.h;
 			name = Frog.h;
 			path = ../../Source/Frog.h;
+			sourceTree = "SOURCE_ROOT";
+		};
+		3354141BED9B585C73AEF841 = {
+			isa = PBXFileReference;
+			lastKnownFileType = image.png;
+			name = Frog2.png.png;
+			path = ../../../../../../Downloads/Frog2.png.png;
 			sourceTree = "SOURCE_ROOT";
 		};
 		377810C4C8BE482F7A4F5DDB = {
@@ -276,6 +269,13 @@
 			name = CoreMIDI.framework;
 			path = System/Library/Frameworks/CoreMIDI.framework;
 			sourceTree = SDKROOT;
+		};
+		40949F633BCD10C0D96F6C32 = {
+			isa = PBXFileReference;
+			lastKnownFileType = image.png;
+			name = "Frog-6.png.png";
+			path = "../../../../../../Downloads/Frog-6.png.png";
+			sourceTree = "SOURCE_ROOT";
 		};
 		427B0B4CA30354A45AF88E53 = {
 			isa = PBXFileReference;
@@ -347,6 +347,13 @@
 			path = "../../JuceLibraryCode/modules/juce_events";
 			sourceTree = "SOURCE_ROOT";
 		};
+		5DE36A9206D843385A3C9FCF = {
+			isa = PBXFileReference;
+			lastKnownFileType = image.png;
+			name = Frog3.png.png;
+			path = ../../../../../../Downloads/Frog3.png.png;
+			sourceTree = "SOURCE_ROOT";
+		};
 		602EE230071484758FBDB5AA = {
 			isa = PBXFileReference;
 			lastKnownFileType = file.nib;
@@ -368,11 +375,11 @@
 			path = "../../JuceLibraryCode/modules/juce_audio_processors";
 			sourceTree = "SOURCE_ROOT";
 		};
-		79DF2FE5646005527CCDE964 = {
+		71881F321129D31935AA78C7 = {
 			isa = PBXFileReference;
 			lastKnownFileType = image.png;
-			name = "Fish_R.png";
-			path = "../../Source/Fish_R.png";
+			name = "Fish_L.png";
+			path = "../../../../../../Downloads/Fish_L.png";
 			sourceTree = "SOURCE_ROOT";
 		};
 		7C74669FDF6C33AB29B7D69D = {
@@ -402,6 +409,13 @@
 			name = CoreAudio.framework;
 			path = System/Library/Frameworks/CoreAudio.framework;
 			sourceTree = SDKROOT;
+		};
+		8D036376DD389556E6E756AB = {
+			isa = PBXFileReference;
+			lastKnownFileType = image.png;
+			name = "Frog-5.png.png";
+			path = "../../../../../../Downloads/Frog-5.png.png";
+			sourceTree = "SOURCE_ROOT";
 		};
 		92BE02D03DA76A16D98A4A72 = {
 			isa = PBXFileReference;
@@ -438,6 +452,13 @@
 			path = "../../JuceLibraryCode/modules/juce_data_structures";
 			sourceTree = "SOURCE_ROOT";
 		};
+		9FB2D8631F37ACC21A895C5F = {
+			isa = PBXFileReference;
+			lastKnownFileType = image.png;
+			name = "Fish_R.png";
+			path = "../../../../../../Downloads/Fish_R.png";
+			sourceTree = "SOURCE_ROOT";
+		};
 		ABCC399076F28F5A480B7847 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.h;
@@ -471,6 +492,13 @@
 			lastKnownFileType = sourcecode.c.h;
 			name = MainComponent.h;
 			path = ../../Source/MainComponent.h;
+			sourceTree = "SOURCE_ROOT";
+		};
+		BD8136933BD0CE33D1ECD4DD = {
+			isa = PBXFileReference;
+			lastKnownFileType = image.png;
+			name = Frog4.png.png;
+			path = ../../../../../../Downloads/Frog4.png.png;
 			sourceTree = "SOURCE_ROOT";
 		};
 		C69333FFA7650DF375B4631E = {
@@ -513,6 +541,13 @@
 			lastKnownFileType = file;
 			name = "juce_gui_basics";
 			path = "../../JuceLibraryCode/modules/juce_gui_basics";
+			sourceTree = "SOURCE_ROOT";
+		};
+		D587166BDCE75D3D672E0754 = {
+			isa = PBXFileReference;
+			lastKnownFileType = image.png;
+			name = "Fish_1.png";
+			path = "../../../../../../Downloads/Fish_1.png";
 			sourceTree = "SOURCE_ROOT";
 		};
 		D5AE67825EA08182CCF57BBC = {
@@ -564,6 +599,13 @@
 			path = System/Library/Frameworks/IOKit.framework;
 			sourceTree = SDKROOT;
 		};
+		FBA55D3DFB2526470E229B8F = {
+			isa = PBXFileReference;
+			lastKnownFileType = image.png;
+			name = Frog1.png.png;
+			path = ../../../../../../Downloads/Frog1.png.png;
+			sourceTree = "SOURCE_ROOT";
+		};
 		FDE03EE2996E356D5970E9DE = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.objcpp;
@@ -574,12 +616,18 @@
 		076640855FF98B09DC55DA2C = {
 			isa = PBXGroup;
 			children = (
+				71881F321129D31935AA78C7,
+				D587166BDCE75D3D672E0754,
+				9FB2D8631F37ACC21A895C5F,
+				40949F633BCD10C0D96F6C32,
+				8D036376DD389556E6E756AB,
+				BD8136933BD0CE33D1ECD4DD,
+				3354141BED9B585C73AEF841,
+				FBA55D3DFB2526470E229B8F,
+				5DE36A9206D843385A3C9FCF,
 				03844213F5A9C66961E99C27,
 				129610EEE91FAC7DD467B21C,
 				954427B3C043754195F04361,
-				26F41C8F4E7CDB634035B259,
-				79DF2FE5646005527CCDE964,
-				12D11CDD85E75CBFA0D5E3E5,
 			);
 			name = Images;
 			sourceTree = "<group>";

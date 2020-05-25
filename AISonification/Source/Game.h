@@ -23,7 +23,6 @@ class Game : public Component, public KeyListener
 {
 private:
 
-    //  Shape m_shape;
     Frog m_frog;
     LogVector m_logs;
     FishVector m_fish;
@@ -35,6 +34,7 @@ private:
     TextButton m_playGame;
     bool m_isButtonPressed;
     Font m_font;
+    int m_frogVal;
 
 public:
 

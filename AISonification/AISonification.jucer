@@ -4,12 +4,18 @@
   <MAINGROUP id="cQF0Z1" name="AISonification">
     <GROUP id="{1480AAAD-9696-D7BD-343D-3B2615C27598}" name="Source">
       <GROUP id="{C7BA86D2-AB09-1101-133D-5A8BEFE3C659}" name="Images">
+        <FILE id="yYhvHB" name="Fish_L.png" compile="0" resource="1" file="../../../../Downloads/Fish_L.png"/>
+        <FILE id="s53Xy9" name="Fish_1.png" compile="0" resource="1" file="../../../../Downloads/Fish_1.png"/>
+        <FILE id="dwcY8G" name="Fish_R.png" compile="0" resource="1" file="../../../../Downloads/Fish_R.png"/>
+        <FILE id="qDGXU0" name="Frog-6.png.png" compile="0" resource="1" file="../../../../Downloads/Frog-6.png.png"/>
+        <FILE id="wStCr7" name="Frog-5.png.png" compile="0" resource="1" file="../../../../Downloads/Frog-5.png.png"/>
+        <FILE id="NklDPN" name="Frog4.png.png" compile="0" resource="1" file="../../../../Downloads/Frog4.png.png"/>
+        <FILE id="gPoySN" name="Frog2.png.png" compile="0" resource="1" file="../../../../Downloads/Frog2.png.png"/>
+        <FILE id="H6SdfH" name="Frog1.png.png" compile="0" resource="1" file="../../../../Downloads/Frog1.png.png"/>
+        <FILE id="IHtSX3" name="Frog3.png.png" compile="0" resource="1" file="../../../../Downloads/Frog3.png.png"/>
         <FILE id="eSC06o" name="Log_3.png" compile="0" resource="1" file="Source/Log_3.png"/>
         <FILE id="QpugQR" name="Log_2.png" compile="0" resource="1" file="Source/Log_2.png"/>
         <FILE id="WWeVwU" name="Log_1.png" compile="0" resource="1" file="Source/Log_1.png"/>
-        <FILE id="pCsb59" name="Fish_1.png" compile="0" resource="1" file="Source/Fish_1.png"/>
-        <FILE id="TYSNGC" name="Fish_R.png" compile="0" resource="1" file="Source/Fish_R.png"/>
-        <FILE id="HDpjxy" name="Fish_L.png" compile="0" resource="1" file="Source/Fish_L.png"/>
       </GROUP>
       <FILE id="vOsz6W" name="MidiManager.cpp" compile="1" resource="0" file="Source/MidiManager.cpp"/>
       <FILE id="bdfzNK" name="MidiManager.h" compile="0" resource="0" file="Source/MidiManager.h"/>
