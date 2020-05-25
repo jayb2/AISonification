@@ -37,13 +37,13 @@ jobs:
       run: xcodebuild -project AISonification/Builds/MacOSX/AISonification.xcodeproj
     
     - name: Print Build output
-      run: ls -R AISonification/Builds  
+      run: ls -R AISonification/Builds/MacOSX  
     
     
     - name: Copy app
       run: |
-        mkdir Mac,
-        cp -rf AISonification/Builds/MacOSX/build/Debug/Mac
+        mkdir Mac
+        cp -rf AISonification/Builds/MacOSX
     
     - name: Check folders
       run: ls
@@ -88,13 +88,13 @@ jobs:
       run:  mkdir AISonification/Build
     
     - name: Copy build files
-      run: cp -r AISonification/Builds/VisualStudio2019/x64/Debug/App/AISonification/Build
+      run: cp -r AISonification/Builds
     
     - name: Check copy
-      run: ls AISonification/Build
+      run: ls AISonification/Builds
       
     - name: zip 
-      run: 7z a  AISonificationWindows AISonification/Build
+      run: 7z a  AISonificationWindows AISonification/Builds
     - name: Print Contents
       run: ls
       
