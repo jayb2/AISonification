@@ -92,6 +92,7 @@ void Game::update() {
         for (int n = 0; n < m_logs.size(); ++n) {
             if (m_frog.getShape().intersects(m_logs[n].getShape()) && m_frog.alive == true) {
                 m_frog.alive = false;
+                m_frog.setImageIndex(5);
 
                 //MIDI Notes play here 
                 //m_midiManager.triggerNote(1, 55, 100, 4);
@@ -219,8 +220,14 @@ void Game::paint(Graphics& g)
 
     //Draws the frog providing it's alive
     m_frog.draw(g);
-    m_frog.setImageIndex(0);
+
+    //--------------------------------------------------------
+
+    //Work out how to set this up better
+
+    //m_frog.setImageIndex(0);
     
+    //--------------------------------------------------------
 
     //Drawing on the screen before the game starts -- will be gone when the play button is pressed
     if (!m_isButtonPressed) {

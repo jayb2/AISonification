@@ -137,7 +137,7 @@ void Shape::draw(Graphics& g)
 {
 
 
-    if (!alive)return;
+    //if (!alive)return;
     g.saveState();
     g.setColour(m_col);
     g.fillRect(getShape());

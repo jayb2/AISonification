@@ -4340,31 +4340,31 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\..\..\..\Downloads\Fish_L.png">
+    <None Include="..\..\Source\Frog_7.png.png">
       <Filter>AISonification\Source\Images</Filter>
     </None>
-    <None Include="..\..\..\..\..\..\Downloads\Fish_1.png">
+    <None Include="..\..\Source\Fish_L.png">
       <Filter>AISonification\Source\Images</Filter>
     </None>
-    <None Include="..\..\..\..\..\..\Downloads\Fish_R.png">
+    <None Include="..\..\Source\Fish_R.png">
       <Filter>AISonification\Source\Images</Filter>
     </None>
-    <None Include="..\..\..\..\..\..\Downloads\Frog-6.png.png">
+    <None Include="..\..\Source\Fish_1.png">
       <Filter>AISonification\Source\Images</Filter>
     </None>
-    <None Include="..\..\..\..\..\..\Downloads\Frog-5.png.png">
+    <None Include="..\..\Source\Frog3.png.png">
       <Filter>AISonification\Source\Images</Filter>
     </None>
-    <None Include="..\..\..\..\..\..\Downloads\Frog4.png.png">
+    <None Include="..\..\Source\Frog-5.png.png">
       <Filter>AISonification\Source\Images</Filter>
     </None>
-    <None Include="..\..\..\..\..\..\Downloads\Frog2.png.png">
+    <None Include="..\..\Source\Frog-6.png.png">
       <Filter>AISonification\Source\Images</Filter>
     </None>
-    <None Include="..\..\..\..\..\..\Downloads\Frog1.png.png">
+    <None Include="..\..\Source\Frog1.png.png">
       <Filter>AISonification\Source\Images</Filter>
     </None>
-    <None Include="..\..\..\..\..\..\Downloads\Frog3.png.png">
+    <None Include="..\..\Source\Frog2.png.png">
       <Filter>AISonification\Source\Images</Filter>
     </None>
     <None Include="..\..\Source\Log_3.png">

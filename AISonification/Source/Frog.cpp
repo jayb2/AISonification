@@ -21,6 +21,7 @@ Frog::Frog(int x, int y, int w, int h, Colour col) :
     loadImage(ImageCache::getFromMemory(BinaryData::Frog3_png_png, BinaryData::Frog3_png_pngSize));
     loadImage(ImageCache::getFromMemory(BinaryData::Frog5_png_png, BinaryData::Frog5_png_pngSize));
     loadImage(ImageCache::getFromMemory(BinaryData::Frog6_png_png, BinaryData::Frog6_png_pngSize));
+    loadImage(ImageCache::getFromMemory(BinaryData::Frog_7_png_png, BinaryData::Frog_7_png_pngSize));
 
     setImageIndex(0);
 }
