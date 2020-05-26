@@ -172,13 +172,6 @@
 			path = "../../JuceLibraryCode/include_juce_data_structures.mm";
 			sourceTree = "SOURCE_ROOT";
 		};
-		11D9E4621EA794F54C13BB81 = {
-			isa = PBXFileReference;
-			lastKnownFileType = file;
-			name = "juce_gui_basics";
-			path = "~/JUCE/modules/juce_gui_basics";
-			sourceTree = "<absolute>";
-		};
 		129610EEE91FAC7DD467B21C = {
 			isa = PBXFileReference;
 			lastKnownFileType = image.png;
@@ -207,11 +200,25 @@
 			path = "../../JuceLibraryCode/include_juce_audio_basics.mm";
 			sourceTree = "SOURCE_ROOT";
 		};
+		1ADDF11346D0380D1499D595 = {
+			isa = PBXFileReference;
+			lastKnownFileType = file;
+			name = "juce_gui_extra";
+			path = "../../JuceLibraryCode/modules/juce_gui_extra";
+			sourceTree = "SOURCE_ROOT";
+		};
 		1C8282E2E5FA64BBB3B89DA2 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.cpp;
 			name = MainComponent.cpp;
 			path = ../../Source/MainComponent.cpp;
+			sourceTree = "SOURCE_ROOT";
+		};
+		1E4020B3ED134A1456596831 = {
+			isa = PBXFileReference;
+			lastKnownFileType = file;
+			name = "juce_audio_basics";
+			path = "../../JuceLibraryCode/modules/juce_audio_basics";
 			sourceTree = "SOURCE_ROOT";
 		};
 		25CF639C7B9A83A46C76E668 = {
@@ -256,13 +263,6 @@
 			path = ../../Source/Frog.h;
 			sourceTree = "SOURCE_ROOT";
 		};
-		338834A527B935030067A30A = {
-			isa = PBXFileReference;
-			lastKnownFileType = file;
-			name = "juce_audio_basics";
-			path = "~/JUCE/modules/juce_audio_basics";
-			sourceTree = "<absolute>";
-		};
 		377810C4C8BE482F7A4F5DDB = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.objcpp;
@@ -289,6 +289,13 @@
 			lastKnownFileType = image.png;
 			name = Frog1.png.png;
 			path = ../../Source/Frog1.png.png;
+			sourceTree = "SOURCE_ROOT";
+		};
+		427B0B4CA30354A45AF88E53 = {
+			isa = PBXFileReference;
+			lastKnownFileType = file;
+			name = "juce_cryptography";
+			path = "../../JuceLibraryCode/modules/juce_cryptography";
 			sourceTree = "SOURCE_ROOT";
 		};
 		45B44142834EA85E2F182B60 = {
@@ -333,13 +340,6 @@
 			path = "../../JuceLibraryCode/include_juce_gui_extra.mm";
 			sourceTree = "SOURCE_ROOT";
 		};
-		53E5B55FDB3CA249B0B4E884 = {
-			isa = PBXFileReference;
-			lastKnownFileType = file;
-			name = "juce_audio_devices";
-			path = "~/JUCE/modules/juce_audio_devices";
-			sourceTree = "<absolute>";
-		};
 		5472FA8DB919B0BC418EE9FA = {
 			isa = PBXFileReference;
 			lastKnownFileType = wrapper.framework;
@@ -354,13 +354,6 @@
 			path = "../../JuceLibraryCode/include_juce_graphics.mm";
 			sourceTree = "SOURCE_ROOT";
 		};
-		5826C7CC27458D4B970D44D3 = {
-			isa = PBXFileReference;
-			lastKnownFileType = file;
-			name = "juce_audio_formats";
-			path = "~/JUCE/modules/juce_audio_formats";
-			sourceTree = "<absolute>";
-		};
 		5835ACD1927930D4B194D8C7 = {
 			isa = PBXFileReference;
 			lastKnownFileType = wrapper.framework;
@@ -368,19 +361,12 @@
 			path = System/Library/Frameworks/Cocoa.framework;
 			sourceTree = SDKROOT;
 		};
-		5EDB7B3C3071A4331F5DB1E3 = {
+		5DA1C92ED4434C3494A247A0 = {
 			isa = PBXFileReference;
 			lastKnownFileType = file;
-			name = "juce_core";
-			path = "~/JUCE/modules/juce_core";
-			sourceTree = "<absolute>";
-		};
-		5EEFD2A93C5C0A6C75DF0888 = {
-			isa = PBXFileReference;
-			lastKnownFileType = file;
-			name = "juce_data_structures";
-			path = "~/JUCE/modules/juce_data_structures";
-			sourceTree = "<absolute>";
+			name = "juce_events";
+			path = "../../JuceLibraryCode/modules/juce_events";
+			sourceTree = "SOURCE_ROOT";
 		};
 		602EE230071484758FBDB5AA = {
 			isa = PBXFileReference;
@@ -396,12 +382,12 @@
 			path = ../../Source/Game.h;
 			sourceTree = "SOURCE_ROOT";
 		};
-		727217504F1726CF5DC9832D = {
+		66996B666B12ACF88C5F83A8 = {
 			isa = PBXFileReference;
 			lastKnownFileType = file;
-			name = "juce_opengl";
-			path = "~/JUCE/modules/juce_opengl";
-			sourceTree = "<absolute>";
+			name = "juce_audio_processors";
+			path = "../../JuceLibraryCode/modules/juce_audio_processors";
+			sourceTree = "SOURCE_ROOT";
 		};
 		75C2D4D6997D9FB8E50F987E = {
 			isa = PBXFileReference;
@@ -438,12 +424,12 @@
 			path = ../../JuceLibraryCode/BinaryData.h;
 			sourceTree = "SOURCE_ROOT";
 		};
-		85B2EBDF21EDD32B9F861CB8 = {
+		89B18E6994B6C2D91F4E934C = {
 			isa = PBXFileReference;
 			lastKnownFileType = file;
-			name = "juce_events";
-			path = "~/JUCE/modules/juce_events";
-			sourceTree = "<absolute>";
+			name = "juce_opengl";
+			path = "../../JuceLibraryCode/modules/juce_opengl";
+			sourceTree = "SOURCE_ROOT";
 		};
 		89DFCEA5FEB86D57B66A8D82 = {
 			isa = PBXFileReference;
@@ -473,13 +459,6 @@
 			path = ../../Source/Game.cpp;
 			sourceTree = "SOURCE_ROOT";
 		};
-		9A8B224ADA342366E198AD60 = {
-			isa = PBXFileReference;
-			lastKnownFileType = file;
-			name = "juce_cryptography";
-			path = "~/JUCE/modules/juce_cryptography";
-			sourceTree = "<absolute>";
-		};
 		9C4209DE6CECAEC9D223F79F = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.c.h;
@@ -487,12 +466,12 @@
 			path = ../../JuceLibraryCode/AppConfig.h;
 			sourceTree = "SOURCE_ROOT";
 		};
-		9CF07453686DBB096C0004F0 = {
+		9D73F00D67C102BDFE7E1FE3 = {
 			isa = PBXFileReference;
 			lastKnownFileType = file;
-			name = "juce_graphics";
-			path = "~/JUCE/modules/juce_graphics";
-			sourceTree = "<absolute>";
+			name = "juce_data_structures";
+			path = "../../JuceLibraryCode/modules/juce_data_structures";
+			sourceTree = "SOURCE_ROOT";
 		};
 		ABCC399076F28F5A480B7847 = {
 			isa = PBXFileReference;
@@ -508,12 +487,12 @@
 			path = ../../Source/Shape.cpp;
 			sourceTree = "SOURCE_ROOT";
 		};
-		AEA1E9F3FA7EB31BF198CD73 = {
+		B1A9FFBBF990A67D5B546F29 = {
 			isa = PBXFileReference;
 			lastKnownFileType = file;
-			name = "juce_audio_processors";
-			path = "~/JUCE/modules/juce_audio_processors";
-			sourceTree = "<absolute>";
+			name = "juce_core";
+			path = "../../JuceLibraryCode/modules/juce_core";
+			sourceTree = "SOURCE_ROOT";
 		};
 		B1BEBABBB64D2E03C48C7B57 = {
 			isa = PBXFileReference;
@@ -564,6 +543,27 @@
 			path = ../../Source/MidiManager.cpp;
 			sourceTree = "SOURCE_ROOT";
 		};
+		C9FA9C0A0FC0E05B6CFA69EE = {
+			isa = PBXFileReference;
+			lastKnownFileType = file;
+			name = "juce_audio_devices";
+			path = "../../JuceLibraryCode/modules/juce_audio_devices";
+			sourceTree = "SOURCE_ROOT";
+		};
+		CA7D72609D09C4B494F32307 = {
+			isa = PBXFileReference;
+			lastKnownFileType = file;
+			name = "juce_gui_basics";
+			path = "../../JuceLibraryCode/modules/juce_gui_basics";
+			sourceTree = "SOURCE_ROOT";
+		};
+		D5AE67825EA08182CCF57BBC = {
+			isa = PBXFileReference;
+			lastKnownFileType = file;
+			name = "juce_graphics";
+			path = "../../JuceLibraryCode/modules/juce_graphics";
+			sourceTree = "SOURCE_ROOT";
+		};
 		D7DA6953DED9FB7986D86B37 = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.cpp.objcpp;
@@ -578,18 +578,18 @@
 			path = ../../Source/Fish.h;
 			sourceTree = "SOURCE_ROOT";
 		};
-		DF45A0267431113E9A1BE35D = {
-			isa = PBXFileReference;
-			lastKnownFileType = file;
-			name = "juce_gui_extra";
-			path = "~/JUCE/modules/juce_gui_extra";
-			sourceTree = "<absolute>";
-		};
 		F1C9FC98BBFF2D99733C9025 = {
 			isa = PBXFileReference;
 			lastKnownFileType = text.plist.xml;
 			name = "Info-App.plist";
 			path = "Info-App.plist";
+			sourceTree = "SOURCE_ROOT";
+		};
+		F297C055672DC7415F7E8AA4 = {
+			isa = PBXFileReference;
+			lastKnownFileType = file;
+			name = "juce_audio_formats";
+			path = "../../JuceLibraryCode/modules/juce_audio_formats";
 			sourceTree = "SOURCE_ROOT";
 		};
 		F3E1260BF2F1B583CB022907 = {
@@ -666,18 +666,18 @@
 		80A4B5B818774F9AE77B4BA9 = {
 			isa = PBXGroup;
 			children = (
-				338834A527B935030067A30A,
-				53E5B55FDB3CA249B0B4E884,
-				5826C7CC27458D4B970D44D3,
-				AEA1E9F3FA7EB31BF198CD73,
-				5EDB7B3C3071A4331F5DB1E3,
-				9A8B224ADA342366E198AD60,
-				5EEFD2A93C5C0A6C75DF0888,
-				85B2EBDF21EDD32B9F861CB8,
-				9CF07453686DBB096C0004F0,
-				11D9E4621EA794F54C13BB81,
-				DF45A0267431113E9A1BE35D,
-				727217504F1726CF5DC9832D,
+				1E4020B3ED134A1456596831,
+				C9FA9C0A0FC0E05B6CFA69EE,
+				F297C055672DC7415F7E8AA4,
+				66996B666B12ACF88C5F83A8,
+				B1A9FFBBF990A67D5B546F29,
+				427B0B4CA30354A45AF88E53,
+				9D73F00D67C102BDFE7E1FE3,
+				5DA1C92ED4434C3494A247A0,
+				D5AE67825EA08182CCF57BBC,
+				CA7D72609D09C4B494F32307,
+				1ADDF11346D0380D1499D595,
+				89B18E6994B6C2D91F4E934C,
 			);
 			name = "JUCE Modules";
 			sourceTree = "<group>";
@@ -782,7 +782,7 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = (
 					"../../JuceLibraryCode",
-					"$(HOME)/JUCE/modules",
+					"../../JuceLibraryCode/modules",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = Info-App.plist;
@@ -826,7 +826,7 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = (
 					"../../JuceLibraryCode",
-					"$(HOME)/JUCE/modules",
+					"../../JuceLibraryCode/modules",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = Info-App.plist;
