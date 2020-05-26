@@ -75,6 +75,10 @@ void Shape::tick(int verticalVelocity) {
     m_yPos += verticalVelocity;
     if (m_yPos > 1000) {
         m_yPos = -300;
+        //DBG("GO");
+        m_score++;
+        score = m_score;
+        //DBG(score);
 
         random();
         m_xPos = m_random;

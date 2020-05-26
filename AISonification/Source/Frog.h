@@ -16,6 +16,7 @@ class Frog : public Shape {
 public:
 
     //void reset();
+    int frogScore;
 
     Frog(int x, int y, int w, int h, Colour col);
     ~Frog();

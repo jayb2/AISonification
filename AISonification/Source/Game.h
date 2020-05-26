@@ -15,6 +15,7 @@
 #include "Fish.h"
 #include <vector>
 #include "MidiManager.h"
+#include "Shape.h"
 
 typedef std::vector<Log> LogVector;
 typedef std::vector<Fish> FishVector;
@@ -45,7 +46,6 @@ public:
     void update();
     void tick();
 
-    void setNote(int m_note);
     void playPressed();
 
     void mouseDown(const MouseEvent& event);

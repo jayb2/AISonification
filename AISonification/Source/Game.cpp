@@ -28,7 +28,7 @@ Game::Game() : m_frog(107, 810, 56, 56, Colours::green) {
         String deviceName = m_midiOutput->getText();
         int DeviceID = (m_midiOutput->getSelectedId() - 1);
         DBG(deviceName);
-        m_midiManager.setOutput(DeviceID);
+        m_midiManager.setOutput(deviceName);
     };
 
     ///////////////////////////////////////////////////////////
@@ -46,7 +46,10 @@ Game::Game() : m_frog(107, 810, 56, 56, Colours::green) {
 
     //Adds logs to the screen
     m_logs.push_back(Log(105, 0, 60, 200, Colours::darkcyan));
+    m_logs.push_back(Log(645, -250, 60, 200, Colours::darkcyan));
     m_logs.push_back(Log(15, -500, 60, 200, Colours::darkcyan));
+    m_logs.push_back(Log(555, -750, 60, 200, Colours::darkcyan));
+    m_logs.push_back(Log(375, -1000, 60, 200, Colours::darkcyan));
 
     //Adds fish to the screen
     m_fish.push_back(Fish(645, 0, 60, 100, Colours::darkcyan));
@@ -64,11 +67,12 @@ Game::~Game() {
 
 void Game::update() {
 
-    /*
-    static int frogJump = 0;
-    ++frogJump;
-    m_frogVal = frogJump % 40;
-    */
+    for (int n = 0; n <= m_frog.score; ++n) {
+        m_midiManager.triggerNote(10, 44, 100, 4);
+        DBG(m_frog.score);
+    }
+
+
 
     //Processes the game as long as the play button has been pressed
     if (m_isButtonPressed) {
@@ -78,10 +82,13 @@ void Game::update() {
         if (m_frog.alive) {
             for (int n = 0; n < m_logs.size(); ++n) {
                 m_logs[n].tick(5);
+                
             }
 
             for (int n = 0; n < m_fish.size(); ++n) {
                 m_fish[n].tick(4);
+                
+                
             }
         }
        //Handles spwawning logs ---- Come back to fix this if there is time
@@ -89,24 +96,25 @@ void Game::update() {
         ++logFrame;
         m_logFrame = (logFrame / 1000);
 
+        if (logFrame % 60 == 0) {
+            m_midiManager.triggerNote(10, 42, 100, 4);
+        }
+
         for (int n = 0; n < m_logs.size(); ++n) {
             if (m_frog.getShape().intersects(m_logs[n].getShape()) && m_frog.alive == true) {
                 m_frog.alive = false;
                 m_frog.setImageIndex(5);
-
-                //MIDI Notes play here 
-                //m_midiManager.triggerNote(1, 55, 100, 4);
-                m_midiManager.setChord(-3);
                
-                
+                m_midiManager.startTimerHz(0);
+
                 DBG("dead");
 
             }
         }
         //every second spawn a new log ---- Come back to fix this if there is time
 
-
-        if (logFrame % 60 == 0) {
+        if (logFrame % 2000 == 0) {
+            m_midiManager.setChord(1);
 
             for (int n = 0; n < m_logs.size(); ++n) {
                 if (m_logs[n].isActive() == false) {
@@ -122,20 +130,16 @@ void Game::tick() {
 
 }
 
-void Game::setNote(int m_note) {
-
-    //Turns note on
-    //auto message = MidiMessage::noteOn(10, m_note, 1.0f);
-
-    //Turns note off
- //   auto message = MidiMessage::noteOff(10, m_note, 1.0f);
-}
 
 void Game::playPressed()
 {
     m_isButtonPressed = true;
     setEnabled(false);
     repaint();
+    m_midiManager.setChord(-1);
+    m_midiManager.triggerNote(10, 40, 100, 4);
+   
+    
 }
 
 void Game::mouseDown(const MouseEvent& event) {
@@ -145,47 +149,53 @@ void Game::mouseDown(const MouseEvent& event) {
 bool Game::keyPressed(const KeyPress& key, Component* originatingComponent) {
 
     //Handles the frog movement between lily pads
+    if (m_frog.alive) {
 
-    if (key.getTextCharacter() == 'd') {
-        //DBG("right");
-        //frogVal = 0;
-        m_frog.jumpRight();
-        m_frog.setImageIndex(2);
-
-
-        /*if (m_frogVal < 10) {
-            m_frog.setImageIndex(1);
-        }
-        else if (m_frogVal < 20) {
+        if (key.getTextCharacter() == 'd') {
+            m_frog.jumpRight();
             m_frog.setImageIndex(2);
+            m_midiManager.triggerNote(10, 40, 100, 4);
+
+            //ANIMATION ---- Not working as intended - come back to if time
+            ///////////////////////////////////////
+            /*if (m_frogVal < 10) {
+                m_frog.setImageIndex(1);
+            }
+            else if (m_frogVal < 20) {
+                m_frog.setImageIndex(2);
+            }
+            else if (m_frogVal < 30) {
+                m_frog.setImageIndex(1);
+            }
+            else if (m_frogVal >= 30) {
+                m_frog.setImageIndex(0);
+            }
+            DBG(m_frogVal);*/
+            ////////////////////////////////////////////
         }
-        else if (m_frogVal < 30) {
-            m_frog.setImageIndex(1);
+
+        if (key.getTextCharacter() == 'a') {
+            //DBG("left");
+            m_frog.jumpLeft();
+            m_frog.setImageIndex(4);
+            m_midiManager.triggerNote(10, 36, 100, 4);
         }
-        else if (m_frogVal >= 30) {
-            m_frog.setImageIndex(0);
+
+        //Double jumps 
+
+        if (key.getTextCharacter() == 'e') {
+            //DBG("double right");
+            m_frog.doubleJumpRight();
+            m_midiManager.triggerNote(10, 44, 100, 4);
         }
-        DBG(m_frogVal);*/
-    }
 
-    if (key.getTextCharacter() == 'a') {
-        //DBG("left");
-        m_frog.jumpLeft();
-        m_frog.setImageIndex(4);
+        if (key.getTextCharacter() == 'q') {
+            //DBG("double left");
+            m_frog.doubleJumpLeft();
+            m_midiManager.triggerNote(10, 43, 100, 4);
+        }
+        return true;
     }
-
-    //Double jumps 
-
-    if (key.getTextCharacter() == 'e') {
-        //DBG("double right");
-        m_frog.doubleJumpRight();
-    }
-
-    if (key.getTextCharacter() == 'q') {
-        //DBG("double left");
-        m_frog.doubleJumpLeft();
-    }
-    return true;
 }
 
 void Game::paint(Graphics& g)

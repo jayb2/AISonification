@@ -13,7 +13,7 @@
 MidiManager::MidiManager() {
 
 
-	startTimerHz(8);
+	startTimerHz(4);
 
 
 	m_majorIntervals.push_back(0);
@@ -34,9 +34,9 @@ MidiManager::MidiManager() {
 
 }
 
-void MidiManager::setOutput(int outputName) {
+void MidiManager::setOutput(const String& outputName) {
 
-	m_output->MidiOutput::openDevice(outputName);
+	m_output = (MidiOutput::openDevice(String (outputName)));
 
 	MidiMessage testMessage = MidiMessage::noteOn(1, 60, (uint8)100);
 
@@ -60,6 +60,12 @@ void MidiManager::triggerNote(int channel, int pitch, int velocity, int numberBe
 		MidiMessage message = MidiMessage::noteOn(channel, pitch, (uint8)velocity);
 
 		m_output->sendMessageNow(message);
+
+		MidiMessage endMessage = MidiMessage::noteOff(channel, pitch);
+
+		m_output->sendMessageNow(endMessage);
+
+	
 	}
 
 }
@@ -68,7 +74,7 @@ void MidiManager::triggerNote(int channel, int pitch, int velocity, int numberBe
 void MidiManager::timerCallback() {
 
 
-	triggerQuantizedNote(1, 100, 16);
+	triggerQuantizedNote(1, 100, 4);
 
 
 	std::vector<int> positions;
@@ -98,7 +104,7 @@ void MidiManager::timerCallback() {
 
 	for (auto pos : positions) {
 		//FIXME potential overuse of ram... 
-	//	m_midiNotes.erase(m_midiNotes.begin() + pos);
+		//m_midiNotes.erase(m_midiNotes.begin() + pos);
 
 	}
 
@@ -110,7 +116,7 @@ void MidiManager::timerCallback() {
 
 void MidiManager::triggerQuantizedNote(int channel, int velocity, int numberBeats, int lowestMidiNote, int highestMidiNote) {
 	Random r;
-	static std::vector<int> noteSeq = { 0,4,7,11,7,4 };
+	static std::vector<int> noteSeq = { 0, 4, 7, 11, 13, 11, 7, 4 };
 	static int pos = 0;
 	//for randomness
 	//int randomNote = r.nextInt(highestMidiNote) + lowestMidiNote;
@@ -120,7 +126,7 @@ void MidiManager::triggerQuantizedNote(int channel, int velocity, int numberBeat
 		pos = 0;
 	}
 
-	/* arp
+	// arp
 
 	int chordInterval = m_chordNotes[randomNote % m_chordNotes.size()];
 //	DBG(chordInterval);
@@ -134,11 +140,12 @@ void MidiManager::triggerQuantizedNote(int channel, int velocity, int numberBeat
 
 	int pitch = m_majorIntervals[index % 7] + octave   ;
 
-	*/
+	
 	//sequence
-	int pitch = m_majorIntervals[randomNote % 7] + ((randomNote / 7) * 12);
+	//int pitch = m_majorIntervals[randomNote % 7] + ((randomNote / 7) * 12);
 
 	triggerNote(channel, pitch, velocity, numberBeats);
+	
 
 }
 

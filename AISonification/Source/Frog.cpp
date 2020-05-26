@@ -24,6 +24,8 @@ Frog::Frog(int x, int y, int w, int h, Colour col) :
     loadImage(ImageCache::getFromMemory(BinaryData::Frog_7_png_png, BinaryData::Frog_7_png_pngSize));
 
     setImageIndex(0);
+
+    score = frogScore;
 }
 
 
